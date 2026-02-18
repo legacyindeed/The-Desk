@@ -79,15 +79,23 @@ const Analytics = () => {
     return (
         <div className="analytics-page">
 
-            <header className="sanctuary-nav analytics-nav">
+            <header className="sanctuary-nav analytics-nav container">
                 <div className="nav-left">
-                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                        The Desk
-                    </span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ fontSize: '2rem', color: '#3b82f6' }}>✎</span> <span style={{ fontFamily: 'var(--font-serif)', fontWeight: 800, fontSize: '2rem', letterSpacing: '-0.03em' }}>The Desk</span>
+                        </span>
+                        <button
+                            onClick={() => navigate(-1)}
+                            style={{ background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: '0.2rem' }}
+                            title="Go Back"
+                        >
+                            ← Back
+                        </button>
+                    </div>
                 </div>
                 <div className="nav-right">
                     <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>
-                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={() => navigate('/dashboard')}>Dashboard</button>
                     <BurgerMenu />
                 </div>
             </header>
