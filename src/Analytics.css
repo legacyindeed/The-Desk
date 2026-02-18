@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+.analytics-page {
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: #020617;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 8rem;
+}
+
+.analytics-header {
+    padding: 2rem 0 2rem 0;
+    text-align: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.hero-title {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.analytics-main {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.entries-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.entry-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    border-radius: 32px;
+    padding: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.entry-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.06);
+}
+
+.entry-icon {
+    width: 64px;
+    height: 64px;
+    background: #f8fafc;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.entry-content {
+    flex: 1;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.entry-type-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #94a3b8;
+}
+
+.entry-date {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.entry-card h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.author {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: #64748b;
+    margin-bottom: 1rem;
+}
+
+.entry-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat {
+    font-size: 0.95rem;
+    color: #94a3b8;
+}
+
+.stat strong {
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+
+.reflections,
+.excerpt {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #475569;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-top: 1rem;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.entry-image-preview {
+    width: 140px;
+    height: 140px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.entry-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 32px;
+    padding: 4rem;
+    position: relative;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(15, 23, 42, 0.03);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 100;
+}
+
+.modal-close:hover {
+    background: #ef4444;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding-top: 2rem;
+}
+
+.full-text {
+    font-family: 'Lora', serif;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    color: #334155;
+    margin-top: 2rem;
+}
+
+.writing-content h1,
+.writing-content h2 {
+    margin: 2rem 0 1rem 0;
+}
+
+.writing-content p {
+    margin-bottom: 1.5rem;
+}
+
+.mood-badge {
+    padding: 0.5rem 1rem;
+    background: #fef3c7;
+    color: #d97706;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.empty-state p {
+    font-size: 1.3rem;
+    color: #64748b;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+    .entry-card {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .entry-image-preview {
+        width: 100%;
+        height: 200px;
+    }
+
+    .modal-content {
+        padding: 2rem;
+    }
+}
