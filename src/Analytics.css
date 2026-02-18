@@ -39,6 +39,14 @@
     margin-bottom: 0.5rem;
 }
 
+.mobile-page-title {
+    display: none;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #020617;
+}
+
 .analytics-main {
     max-width: 900px;
     margin: 0 auto;
@@ -315,27 +323,52 @@
 @media (max-width: 768px) {
 
     /* Stack action buttons below the brand on mobile */
-    .analytics-nav {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        padding: 1rem 1.25rem;
+    .sanctuary-nav.analytics-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        justify-items: center;
+        gap: 0;
+        padding: 1rem 1.25rem 2.5rem 1.25rem;
+        /* Extra bottom padding for Clear All button */
+        position: relative;
     }
 
     .analytics-nav .nav-left {
-        flex: 1;
+        grid-column: 1;
+        justify-self: start;
+        flex: unset;
+    }
+
+    .mobile-page-title {
+        display: block;
+        grid-column: 2;
+        text-align: center;
+        line-height: 1.2;
     }
 
     .analytics-nav .nav-right {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.75rem;
-        flex-wrap: wrap;
+        grid-column: 3;
+        width: auto;
+        justify-content: flex-end;
+        gap: 0;
+        position: relative;
     }
 
     .analytics-nav-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 0.75rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
         border-radius: 10px;
+        white-space: nowrap;
+    }
+
+    /* Hide large title on mobile */
+    .analytics-header .hero-title {
+        display: none;
     }
 
     .entry-card {
