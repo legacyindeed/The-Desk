@@ -75,7 +75,7 @@ const Auth = () => {
             </button>
 
             <div className="auth-card animate-up">
-                <h2>{isLogin ? 'Welcome Back' : 'Join the Sanctuary'}</h2>
+                <h2>{isLogin ? 'Welcome Back.' : 'Join the Sanctuary.'}</h2>
                 <p className="auth-subtitle">
                     {isLogin
                         ? 'Return to your workspace.'
