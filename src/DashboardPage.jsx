@@ -36,24 +36,18 @@ const DashboardPage = () => {
 
             <nav className="sanctuary-nav container">
                 <div className="nav-left" style={{ display: 'flex', alignItems: 'center' }}>
-                    <span className="sanctuary-brand" onClick={() => navigate('/home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✎</span> The Desk
-                    </span>
+                    <button
+                        onClick={() => navigate(-1)}
+                        style={{ background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        title="Go Back"
+                    >
+                        ← Back
+                    </button>
                 </div>
                 <div className="nav-right">
                     <BurgerMenu />
                 </div>
             </nav>
-
-            <div className="container" style={{ marginTop: '1rem' }}>
-                <button
-                    onClick={() => navigate(-1)}
-                    style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                    title="Go Back"
-                >
-                    ← Back
-                </button>
-            </div>
 
             <main className="container dashboard-container">
                 <Dashboard entries={entries} />
