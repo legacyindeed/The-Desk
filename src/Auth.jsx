@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './Auth.css';
 
 import { auth } from './firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const Auth = () => {
     const navigate = useNavigate();
@@ -17,6 +17,25 @@ const Auth = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     // const [isLoginMode, setIsLoginMode] = useState(true); // If you want internal toggle
+
+    const handleGoogleSignIn = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            localStorage.setItem('thedesk_user', JSON.stringify({
+                email: user.email,
+                name: user.displayName || 'Seeker',
+                uid: user.uid
+            }));
+
+            navigate('/entrance');
+        } catch (error) {
+            console.error("Google Auth Error:", error);
+            alert(error.message);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -63,7 +82,16 @@ const Auth = () => {
                         : 'Claim your spot at The Desk.'}
                 </p>
 
-                <form className="auth-form" onSubmit={handleSubmit}>
+                <button type="button" className="btn-google animate-up" style={{ animationDelay: '0.1s' }} onClick={handleGoogleSignIn}>
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" />
+                    <span>Continue with Google</span>
+                </button>
+
+                <div className="auth-divider animate-up" style={{ animationDelay: '0.2s' }}>
+                    <span>or use email</span>
+                </div>
+
+                <form className="auth-form animate-up" style={{ animationDelay: '0.3s' }} onSubmit={handleSubmit}>
                     {!isLogin && (
                         <div className="input-group">
                             <label>Full Name</label>
