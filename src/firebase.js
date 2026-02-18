@@ -7,13 +7,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // REPLACE these values with your own from the Firebase Console!
 const firebaseConfig = {
-    apiKey: "AIzaSyDqd_7sESMrPfDhbo1LQGYnmUUyvEn07gQ",
-    authDomain: "the-desk-dee23.firebaseapp.com",
-    projectId: "the-desk-dee23",
-    storageBucket: "the-desk-dee23.firebasestorage.app",
-    messagingSenderId: "505043654634",
-    appId: "1:505043654634:web:8043a07933d1d809eb0493",
-    measurementId: "G-Z3W2549JE4"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
