@@ -178,3 +178,26 @@
 .btn-back-home:hover {
     color: white;
 }
+
+
+@media (max-width: 768px) {
+    .auth-card {
+        padding: 2rem 1.5rem;
+        max-width: 90%;
+    }
+
+    .auth-card h2 {
+        font-size: 1.75rem;
+    }
+
+    .auth-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+
+    .btn-back-home {
+        top: 1.5rem;
+        left: 1.5rem;
+        font-size: 0.9rem;
+    }
+}

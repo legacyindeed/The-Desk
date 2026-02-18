@@ -149,10 +149,43 @@
 
 @media (max-width: 1024px) {
     .hero-title-main {
-        font-size: 5rem;
+        font-size: 4rem;
     }
 
     .nav-center {
         display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sanctuary-nav {
+        padding: 1.5rem;
+    }
+
+    .hero-title-main {
+        font-size: 2.75rem;
+    }
+
+    .hero-subtitle-main {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .nav-right {
+        gap: 1rem;
+    }
+
+    .sanctuary-footer {
+        padding: 1.5rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-tag {
+        font-size: 1rem;
+    }
+
+    .auth-group {
+        padding-left: 1rem;
     }
 }

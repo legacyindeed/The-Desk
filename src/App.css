@@ -351,17 +351,69 @@
     display: none;
   }
 
-  .hero-text h1 {
-    font-size: 2.75rem;
+  .app {
+    padding-top: 60px;
+    /* Reduced specific padding for mobile */
   }
 
+  /* Hero Adjustments */
+  .hero {
+    padding: 3rem 0;
+    gap: 2rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+    /* Smaller yet impactful */
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* Feature Cards */
+  .hero-card {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  /* Features Grid */
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
   }
 
   .footer-content {
     flex-direction: column;
     gap: 2rem;
     text-align: center;
+  }
+
+  .social-links {
+    flex-direction: column;
+    gap: 1rem;
   }
 }

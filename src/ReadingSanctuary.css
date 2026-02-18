@@ -95,11 +95,30 @@
 
 /* Responsive */
 @media (max-width: 640px) {
-    .sanctuary-form {
-        padding: 1.5rem;
+    .reading-form-card {
+        padding: 2rem 1.5rem;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 24px;
     }
 
-    .form-row {
+    .reading-form-card h1 {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .reading-form-card p.subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 1rem;
+        padding: 1rem;
     }
 }

@@ -280,10 +280,38 @@
 @media (max-width: 1024px) {
     .studio-layout {
         grid-template-columns: 1fr;
+        gap: 3rem;
     }
 
     .studio-sidebar {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .studio-layout {
+        padding-top: 2rem;
+        gap: 2rem;
+    }
+
+    .title-input-fancy {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .quill-wrapper .ql-container.ql-snow {
+        font-size: 1.1rem;
+    }
+
+    .quill-wrapper .ql-editor {
+        min-height: 400px;
+    }
+
+    .zen-exit-btn {
+        top: 1rem;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
     }
 }
