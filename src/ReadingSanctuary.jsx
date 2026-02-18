@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './ReadingSanctuary.css';
 
 import { db, auth } from './firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 
 const ReadingSanctuary = () => {
     const navigate = useNavigate();
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [pages, setPages] = useState('');
-    const [time, setTime] = useState('');
-    const [reflections, setReflections] = useState('');
+    const location = useLocation();
+
+    // Check if we're editing an existing entry
+    const editEntry = location.state?.entry || null;
+
+    const [title, setTitle] = useState(editEntry?.title || '');
+    const [author, setAuthor] = useState(editEntry?.author || '');
+    const [pages, setPages] = useState(editEntry?.pages || '');
+    const [time, setTime] = useState(editEntry?.time || '');
+    const [reflections, setReflections] = useState(editEntry?.reflections || '');
 
     const handleSave = async () => {
         if (!auth.currentUser) {
@@ -19,26 +24,35 @@ const ReadingSanctuary = () => {
             return;
         }
 
-        const entry = {
-            id: Date.now(), // Still useful for keying
-            type: 'reading',
-            title,
-            author,
-            pages,
-            time,
-            reflections,
-            date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            timestamp: new Date().toISOString()
-        };
-
         try {
-            await addDoc(collection(db, 'users', auth.currentUser.uid, 'entries'), entry);
-
-            // Optional: Keep local storage sync or remove it. 
-            // For now, removing local storage write to fully switch to cloud.
+            if (editEntry?.id) {
+                // UPDATE existing entry
+                const entryRef = doc(db, 'users', auth.currentUser.uid, 'entries', editEntry.id);
+                await updateDoc(entryRef, {
+                    title,
+                    author,
+                    pages,
+                    time,
+                    reflections,
+                    updatedAt: new Date().toISOString()
+                });
+            } else {
+                // CREATE new entry
+                const entry = {
+                    type: 'reading',
+                    title,
+                    author,
+                    pages,
+                    time,
+                    reflections,
+                    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                    timestamp: new Date().toISOString()
+                };
+                await addDoc(collection(db, 'users', auth.currentUser.uid, 'entries'), entry);
+            }
             navigate('/analytics');
         } catch (e) {
-            console.error("Error adding document: ", e);
+            console.error("Error saving document: ", e);
             alert("Failed to save entry. Please try again.");
         }
     };
@@ -47,7 +61,7 @@ const ReadingSanctuary = () => {
         <div className="sanctuary-page">
             <header className="sanctuary-nav">
                 <div className="nav-left">
-                    <button className="btn-back-fancy" onClick={() => navigate('/dashboard')}>
+                    <button className="btn-back-fancy" onClick={() => navigate('/analytics')}>
                         <span>←</span> Back
                     </button>
                     <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', marginLeft: '2rem' }}>
@@ -58,8 +72,10 @@ const ReadingSanctuary = () => {
 
             <main className="container sanctuary-main animate-up">
                 <div className="reading-form-card glass-blur">
-                    <h1>Reading Session</h1>
-                    <p className="subtitle">Archive your insights and mindful reflections.</p>
+                    <h1>{editEntry ? 'Edit Reading Session' : 'Reading Session'}</h1>
+                    <p className="subtitle">
+                        {editEntry ? 'Update your insights and reflections.' : 'Archive your insights and mindful reflections.'}
+                    </p>
 
                     <div className="form-grid">
                         <div className="form-group">
@@ -112,7 +128,7 @@ const ReadingSanctuary = () => {
 
                     <div className="form-footer">
                         <button className="btn-main-premium-lg" onClick={handleSave}>
-                            Archive Session
+                            {editEntry ? 'Save Changes' : 'Archive Session'}
                         </button>
                     </div>
                 </div>

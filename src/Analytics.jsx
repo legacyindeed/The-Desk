@@ -16,7 +16,7 @@ const Analytics = () => {
             if (user) {
                 const q = query(collection(db, 'users', user.uid, 'entries'), orderBy('timestamp', 'desc'));
                 const unsubscribe = onSnapshot(q, (snapshot) => {
-                    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    const data = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                     setEntries(data);
                 });
                 return () => unsubscribe();
@@ -34,18 +34,39 @@ const Analytics = () => {
 
     const clearHistory = async () => {
         if (!auth.currentUser) return;
-
-        if (window.confirm('Are you sure you want to clear your history? This cannot be undone.')) {
+        if (window.confirm('Are you sure you want to clear ALL your history? This cannot be undone.')) {
             try {
                 const q = query(collection(db, 'users', auth.currentUser.uid, 'entries'));
                 const snapshot = await getDocs(q);
                 const deletePromises = snapshot.docs.map(d => deleteDoc(doc(db, 'users', auth.currentUser.uid, 'entries', d.id)));
                 await Promise.all(deletePromises);
-                // State updates automatically via onSnapshot
             } catch (error) {
                 console.error("Error clearing history:", error);
                 alert("Failed to clear history.");
             }
+        }
+    };
+
+    const deleteEntry = async (e, entryId) => {
+        e.stopPropagation(); // Don't open the modal
+        if (!auth.currentUser) return;
+        if (window.confirm('Delete this entry? This cannot be undone.')) {
+            try {
+                await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'entries', entryId));
+                if (selectedEntry?.id === entryId) setSelectedEntry(null);
+            } catch (error) {
+                console.error("Error deleting entry:", error);
+                alert("Failed to delete entry.");
+            }
+        }
+    };
+
+    const editEntry = (e, entry) => {
+        e.stopPropagation(); // Don't open the modal
+        if (entry.type === 'writing') {
+            navigate('/track/write', { state: { entry } });
+        } else {
+            navigate('/track/read', { state: { entry } });
         }
     };
 
@@ -65,7 +86,7 @@ const Analytics = () => {
                     </span>
                 </div>
                 <div className="nav-right">
-                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear History</button>
+                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>
                     <button className="btn-secondary-fancy analytics-nav-btn" onClick={() => navigate('/dashboard')}>Dashboard</button>
                     <BurgerMenu />
                 </div>
@@ -120,6 +141,24 @@ const Analytics = () => {
                                             <p className="excerpt">{stripHtml(entry.content)}</p>
                                         </div>
                                     )}
+
+                                    {/* Edit & Delete action buttons */}
+                                    <div className="entry-actions">
+                                        <button
+                                            className="entry-action-btn edit-btn"
+                                            onClick={(e) => editEntry(e, entry)}
+                                            title="Edit entry"
+                                        >
+                                            ✏️ Edit
+                                        </button>
+                                        <button
+                                            className="entry-action-btn delete-btn"
+                                            onClick={(e) => deleteEntry(e, entry.id)}
+                                            title="Delete entry"
+                                        >
+                                            🗑️ Delete
+                                        </button>
+                                    </div>
                                 </div>
                                 {entry.type === 'writing' && entry.image && (
                                     <div className="entry-image-preview">
@@ -163,6 +202,11 @@ const Analytics = () => {
                                     <h3 style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Reflections</h3>
                                     <p>{selectedEntry.reflections || "No reflections recorded for this session."}</p>
                                 </div>
+
+                                <div className="modal-actions">
+                                    <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
+                                    <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
+                                </div>
                             </div>
                         ) : (
                             <div className="modal-body">
@@ -182,6 +226,11 @@ const Analytics = () => {
                                 </div>
 
                                 <div className="full-text writing-content" dangerouslySetInnerHTML={{ __html: selectedEntry.content }}>
+                                </div>
+
+                                <div className="modal-actions">
+                                    <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
+                                    <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
                                 </div>
                             </div>
                         )}
