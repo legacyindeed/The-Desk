@@ -1,0 +1,188 @@
+/* HomePage.css */
+.home-dashboard {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    padding: 2rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.home-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.brand {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-btn:hover {
+    color: var(--color-primary);
+}
+
+.home-content {
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    text-align: center;
+}
+
+.welcome-section h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section .date {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.card {
+    background: rgba(var(--color-background-secondary), 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: left;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.quote-card blockquote {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.quote-card cite {
+    display: block;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.fact-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.article-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none;
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+.quick-actions {
+    margin-top: 5rem;
+}
+
+.quick-actions h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    font-family: var(--font-serif);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn.write {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.action-btn.read {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .home-content {
+        margin-top: 2rem;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+}

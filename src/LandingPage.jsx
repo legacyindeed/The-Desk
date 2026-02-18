@@ -21,13 +21,13 @@ const LandingPage = () => {
 
             <div className={`landing-content ${isVisible ? 'fade-in' : ''}`}>
                 <nav className="landing-nav">
-                    <div className="landing-logo">
+                    <div className="landing-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
                         <span className="logo-icon-main">✎</span>
                         <span className="logo-text-fancy">The Desk</span>
                     </div>
                     <div className="nav-secondary">
-                        <span>Philosophy</span>
-                        <span>Manifesto</span>
+                        <span onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log In</span>
+                        <span onClick={() => navigate('/signup')} className="nav-signup-link">Get Started</span>
                     </div>
                 </nav>
 
@@ -39,18 +39,18 @@ const LandingPage = () => {
                     </h1>
 
                     <p className="hero-subtitle-fancy">
-                        Aura is more than a tracker. It's a premium canvas for your reading reflections
+                        The Desk is more than a tracker. It's a premium canvas for your reading reflections
                         and a distraction-free studio for your writing journey.
                         Elevate your habits into an art form.
                     </p>
 
                     <div className="cta-group-fancy">
-                        <button className="btn-main-premium" onClick={() => navigate('/select')}>
-                            Enter the Sanctuary
+                        <button className="btn-main-premium" onClick={() => navigate('/signup')}>
+                            Claim Your Workspace
                             <span className="btn-glow"></span>
                         </button>
-                        <div className="secondary-cta-fancy" onClick={() => navigate('/dashboard')}>
-                            View Your Dashboard
+                        <div className="secondary-cta-fancy" onClick={() => navigate('/login')}>
+                            Already a member? Log In
                             <div className="arrow-icon">→</div>
                         </div>
                     </div>
@@ -60,24 +60,24 @@ const LandingPage = () => {
                     <div className="grid-item glass-fancy animate-stagger-1">
                         <div className="item-icon">📖</div>
                         <h4>Quiet Reading</h4>
-                        <p>Log every page with mindful reflections.</p>
+                        <p>Log every page with mindful reflections and curated book stats.</p>
                     </div>
                     <div className="grid-item glass-fancy animate-stagger-2">
                         <div className="item-icon">✒️</div>
                         <h4>Deep Writing</h4>
                         <div className="word-pulse"></div>
-                        <p>A studio built for the focused writer.</p>
+                        <p>A minimalist studio built for focus and creative momentum.</p>
                     </div>
                     <div className="grid-item glass-fancy animate-stagger-3">
                         <div className="item-icon">📊</div>
                         <h4>Pure Insight</h4>
-                        <p>Your progress, visualized with elegance.</p>
+                        <p>Your intellectual progress, visualized with premium elegance.</p>
                     </div>
                 </section>
             </div>
 
             <footer className="landing-footer-minimal">
-                <p>Curated by the intentional mind. &copy; 2026 Aura</p>
+                <p>Curated for the intentional mind. &copy; 2026 The Desk</p>
             </footer>
         </div>
     );

@@ -12,7 +12,7 @@ const Entrance = () => {
 
         // Auto-navigate after the animation completes
         const timer = setTimeout(() => {
-            navigate('/dashboard');
+            navigate('/home');
         }, 3500);
 
         return () => clearTimeout(timer);

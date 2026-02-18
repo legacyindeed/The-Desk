@@ -6,7 +6,8 @@ import WritingStudio from './WritingStudio';
 import ReadingSanctuary from './ReadingSanctuary';
 import Analytics from './Analytics';
 import Settings from './Settings';
-import Home from './Home';
+import LandingPage from './LandingPage';
+import HomePage from './HomePage';
 import DashboardPage from './DashboardPage';
 import Auth from './Auth';
 import Entrance from './Entrance';
@@ -31,7 +32,8 @@ function App() {
       <div className="app-sanctuary-overlay"></div>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/signup" element={<Auth />} />
         <Route path="/entrance" element={<Entrance />} />
