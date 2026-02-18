@@ -25,7 +25,7 @@
 
 .nav-actions {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     align-items: center;
 }
 
@@ -33,7 +33,8 @@
     background: transparent;
     border: none;
     color: var(--color-text-secondary);
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
     transition: color 0.3s;
 }
@@ -184,5 +185,10 @@
 
     .welcome-section h1 {
         font-size: 2rem;
+    }
+
+    /* Hide desktop nav buttons on mobile */
+    .nav-btn {
+        display: none;
     }
 }
