@@ -9,7 +9,15 @@
     justify-content: space-between;
     align-items: center;
     /* Changed from flex-end for better alignment with selector */
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-page-title {
+    display: none;
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #020617;
 }
 
 .welcome-text h1 {
@@ -45,6 +53,9 @@
     color: #64748b;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    flex: 1;
+    /* Make buttons expand to fill container */
+    text-align: center;
 }
 
 .time-btn:hover {
@@ -240,29 +251,65 @@
 }
 
 @media (max-width: 768px) {
+    .dashboard-view {
+        padding-top: 0;
+        /* Minimize gap between nav and content */
+    }
+
+    .sanctuary-nav {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        padding: 1rem 1.25rem;
+    }
+
+    .nav-left {
+        grid-column: 1;
+    }
+
+    .dashboard-page-title {
+        display: block;
+        grid-column: 2;
+        text-align: center;
+    }
+
+    .nav-right {
+        grid-column: 3;
+        display: flex;
+        justify-content: flex-end;
+    }
+
     .dashboard-header {
         flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 2rem;
-        gap: 1.5rem;
+        align-items: stretch;
+        /* Stretch to fill width */
+        margin-bottom: 1.5rem;
+        gap: 1rem;
     }
 
     .welcome-text h1 {
         font-size: 2.5rem;
         line-height: 1.1;
+        display: none;
+        /* Hide large welcome text on mobile since we have nav title */
     }
 
     .timeframe-selector {
         width: 100%;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding: 0.25rem;
+        justify-content: space-between;
+        padding: 0.35rem;
+        display: flex;
+        /* Ensure flex behavior */
     }
 
     .time-btn {
-        flex-shrink: 0;
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
+        flex: 1;
+        /* Force equal width */
+        padding: 0.6rem 0;
+        /* Reduce side padding to fit text if needed */
+        font-size: 0.85rem;
+        border-radius: 100px;
+        /* Maintain pill shape */
     }
 
     /* Stack Stats */
