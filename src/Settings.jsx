@@ -70,19 +70,27 @@ const Settings = () => {
 
             <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', marginBottom: '1rem' }}>
-                    <div style={{ justifySelf: 'start' }}></div>
+                    <div style={{ justifySelf: 'start' }}>
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="btn-back-fancy"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                color: '#0f172a', // Darker for legibility
+                                background: 'none',
+                                border: 'none',
+                                fontSize: '1.1rem', // Larger
+                                fontWeight: 700,    // Bolder
+                                cursor: 'pointer',
+                                gap: '0.5rem'
+                            }}
+                        >
+                            ← Back
+                        </button>
+                    </div>
                     <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 700, margin: 0, color: '#020617', justifySelf: 'center' }}>Settings</h2>
                     <div style={{ justifySelf: 'end' }}><BurgerMenu /></div>
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                    <button
-                        onClick={() => navigate(-1)}
-                        className="btn-back-fancy"
-                        style={{ display: 'inline-flex', alignItems: 'center', color: '#64748b', background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', gap: '0.5rem' }}
-                    >
-                        ← Back
-                    </button>
                 </div>
             </div>
 
