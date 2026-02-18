@@ -16,7 +16,16 @@ const Auth = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
-    // const [isLoginMode, setIsLoginMode] = useState(true); // If you want internal toggle
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is already signed in, redirect to entrance
+                navigate('/entrance');
+            }
+        });
+        return () => unsubscribe();
+    }, [navigate]);
 
     const handleGoogleSignIn = async () => {
         try {

@@ -27,6 +27,11 @@ const Analytics = () => {
         return () => unsubscribeAuth();
     }, []);
 
+    const formatTime = (isoString) => {
+        if (!isoString) return '';
+        return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
+
     const clearHistory = async () => {
         if (!auth.currentUser) return;
 
@@ -92,7 +97,7 @@ const Analytics = () => {
                                 <div className="entry-content">
                                     <div className="entry-header">
                                         <span className="entry-type-label">{entry.type}</span>
-                                        <span className="entry-date">{entry.date}</span>
+                                        <span className="entry-date">{entry.date} • {formatTime(entry.timestamp)}</span>
                                     </div>
 
                                     {entry.type === 'reading' ? (
@@ -135,7 +140,7 @@ const Analytics = () => {
 
                         <div className="entry-header">
                             <span className={`entry-type-label ${selectedEntry.type}`}>{selectedEntry.type}</span>
-                            <span className="entry-date">{selectedEntry.date}</span>
+                            <span className="entry-date">{selectedEntry.date} • {formatTime(selectedEntry.timestamp)}</span>
                         </div>
 
                         {selectedEntry.type === 'reading' ? (
