@@ -36,7 +36,7 @@ const DashboardPage = () => {
 
             <nav className="sanctuary-nav container">
                 <div className="nav-left" style={{ display: 'flex', alignItems: 'center' }}>
-                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span className="sanctuary-brand" onClick={() => navigate('/home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✎</span> The Desk
                     </span>
                 </div>
