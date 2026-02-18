@@ -68,14 +68,20 @@ const Settings = () => {
     return (
         <div className="settings-page">
 
-            <nav className="studio-nav container">
-                <button className="btn-back-fancy" onClick={() => navigate(-1)}>← Back</button>
-                <div className="studio-title">
-                    <span>⚙️</span>
-                    <h2>Settings</h2>
-                </div>
+            <nav className="studio-nav container" style={{ justifyContent: 'flex-end', paddingTop: '1.5rem' }}>
                 <BurgerMenu />
             </nav>
+
+            <div className="container" style={{ textAlign: 'center', marginTop: '1rem', marginBottom: '2rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 700, margin: 0 }}>Settings</h2>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="btn-back-fancy"
+                    style={{ marginTop: '1rem', display: 'inline-flex' }}
+                >
+                    ← Back
+                </button>
+            </div>
 
             <main className="container settings-main animate-up">
                 <div className="glass settings-card">
