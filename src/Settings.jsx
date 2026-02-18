@@ -68,19 +68,22 @@ const Settings = () => {
     return (
         <div className="settings-page">
 
-            <nav className="studio-nav container" style={{ justifyContent: 'flex-end', paddingTop: '1.5rem' }}>
-                <BurgerMenu />
-            </nav>
+            <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', marginBottom: '1rem' }}>
+                    <div style={{ justifySelf: 'start' }}></div>
+                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 700, margin: 0, color: '#020617', justifySelf: 'center' }}>Settings</h2>
+                    <div style={{ justifySelf: 'end' }}><BurgerMenu /></div>
+                </div>
 
-            <div className="container" style={{ textAlign: 'center', marginTop: '1rem', marginBottom: '2rem' }}>
-                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 700, margin: 0 }}>Settings</h2>
-                <button
-                    onClick={() => navigate(-1)}
-                    className="btn-back-fancy"
-                    style={{ marginTop: '1rem', display: 'inline-flex' }}
-                >
-                    ← Back
-                </button>
+                <div style={{ textAlign: 'center' }}>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="btn-back-fancy"
+                        style={{ display: 'inline-flex', alignItems: 'center', color: '#64748b', background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', gap: '0.5rem' }}
+                    >
+                        ← Back
+                    </button>
+                </div>
             </div>
 
             <main className="container settings-main animate-up">
