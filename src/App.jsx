@@ -11,19 +11,7 @@ import HomePage from './HomePage';
 import DashboardPage from './DashboardPage';
 import Auth from './Auth';
 import Entrance from './Entrance';
-
-const ProfilePlaceholder = () => {
-  const navigate = useNavigate();
-  return (
-    <div className="selection-page">
-      <div className="container" style={{ textAlign: 'center', marginTop: '10rem' }}>
-        <h1>👤 User Profile</h1>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>Manage your stats and personal achievements here.</p>
-        <button className="btn-back-fancy" onClick={() => navigate(-1)}>Go Back</button>
-      </div>
-    </div>
-  );
-};
+import Profile from './Profile';
 
 function App() {
   return (
@@ -43,7 +31,7 @@ function App() {
         <Route path="/track/write" element={<WritingStudio />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/profile" element={<ProfilePlaceholder />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
