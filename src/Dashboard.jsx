@@ -44,10 +44,6 @@ const Dashboard = ({ entries }) => {
     return (
         <div className="dashboard-view animate-up">
             <header className="dashboard-header">
-                <div className="welcome-text">
-                    <h1>Welcome back{firstName ? `, ${firstName}` : ''}.</h1>
-                    <p>Your creative momentum is building.</p>
-                </div>
 
                 <div className="timeframe-selector">
                     {['Weekly', 'Monthly', 'Annual'].map(t => (

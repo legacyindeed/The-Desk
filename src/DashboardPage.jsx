@@ -35,13 +35,19 @@ const DashboardPage = () => {
         <div className="app dashboard-mode">
 
             <nav className="sanctuary-nav container">
-                <div className="nav-left">
-                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                        The Desk
+                <div className="nav-left" style={{ display: 'flex', alignItems: 'center' }}>
+                    <button
+                        onClick={() => navigate(-1)}
+                        style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', marginRight: '1rem', color: '#0f172a' }}
+                        title="Go Back"
+                    >
+                        ←
+                    </button>
+                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✎</span> The Desk
                     </span>
                 </div>
                 <div className="nav-right">
-                    <button className="btn-primary-fancy" onClick={() => navigate('/select')}>+ New Entry</button>
                     <BurgerMenu />
                 </div>
             </nav>
