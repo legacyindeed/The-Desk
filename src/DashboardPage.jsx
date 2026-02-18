@@ -36,13 +36,6 @@ const DashboardPage = () => {
 
             <nav className="sanctuary-nav container">
                 <div className="nav-left" style={{ display: 'flex', alignItems: 'center' }}>
-                    <button
-                        onClick={() => navigate(-1)}
-                        style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', marginRight: '1rem', color: '#0f172a' }}
-                        title="Go Back"
-                    >
-                        ←
-                    </button>
                     <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span style={{ fontSize: '1.5rem', color: '#3b82f6' }}>✎</span> The Desk
                     </span>
@@ -51,6 +44,16 @@ const DashboardPage = () => {
                     <BurgerMenu />
                 </div>
             </nav>
+
+            <div className="container" style={{ marginTop: '1rem' }}>
+                <button
+                    onClick={() => navigate(-1)}
+                    style={{ background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                    title="Go Back"
+                >
+                    ← Back
+                </button>
+            </div>
 
             <main className="container dashboard-container">
                 <Dashboard entries={entries} />
