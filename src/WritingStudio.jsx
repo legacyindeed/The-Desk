@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill, { Quill } from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import './WritingStudio.css';
 import BurgerMenu from './BurgerMenu';
 
-import { auth, db } from './firebase';
+import { auth, db, storage } from './firebase';
 import { collection, addDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 // Register custom fonts
 const Font = Quill.import('formats/font');
@@ -15,14 +16,58 @@ Quill.register(Font, true);
 
 const WritingStudio = () => {
     const navigate = useNavigate();
+    const quillRef = useRef(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [mood, setMood] = useState('Neutral');
     const [isZen, setIsZen] = useState(false);
     const [lastSaved, setLastSaved] = useState(null);
+    const [uploading, setUploading] = useState(false);
 
     const [wordCount, setWordCount] = useState(0);
     const [charCount, setCharCount] = useState(0);
+
+    // Enable spellcheck on Quill editor after mount
+    useEffect(() => {
+        if (quillRef.current) {
+            const editor = quillRef.current.getEditor();
+            if (editor && editor.root) {
+                editor.root.setAttribute('spellcheck', 'true');
+                editor.root.setAttribute('autocorrect', 'on');
+                editor.root.setAttribute('autocapitalize', 'sentences');
+            }
+        }
+    }, []);
+
+    // Custom image handler — uploads to Firebase Storage instead of base64
+    const imageHandler = useCallback(() => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            if (!file || !auth.currentUser) return;
+
+            setUploading(true);
+            try {
+                const storageRef = ref(storage, `users/${auth.currentUser.uid}/images/${Date.now()}_${file.name}`);
+                await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(storageRef);
+
+                const editor = quillRef.current.getEditor();
+                const range = editor.getSelection(true);
+                editor.insertEmbed(range.index, 'image', url);
+                editor.setSelection(range.index + 1);
+            } catch (e) {
+                console.error('Image upload failed:', e);
+                alert('Image upload failed. Please try again.');
+            } finally {
+                setUploading(false);
+            }
+        };
+    }, []);
 
     const handleSave = async () => {
         if (!auth.currentUser) {
@@ -67,12 +112,17 @@ const WritingStudio = () => {
     }, [content, title]);
 
     const modules = {
-        toolbar: [
-            ['bold', 'italic', 'blockquote'],
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-            ['link', 'image'],
-            ['clean']
-        ],
+        toolbar: {
+            container: [
+                ['bold', 'italic', 'blockquote'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link', 'image'],
+                ['clean']
+            ],
+            handlers: {
+                image: imageHandler
+            }
+        },
     };
 
     return (
@@ -111,9 +161,18 @@ const WritingStudio = () => {
                         placeholder="Enter a Heading..."
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        spellCheck={true}
+                        autoCorrect="on"
+                        autoCapitalize="sentences"
                     />
+                    {uploading && (
+                        <div style={{ padding: '0.5rem 0', color: '#64748b', fontSize: '0.9rem' }}>
+                            ⏳ Uploading image...
+                        </div>
+                    )}
                     <div className="quill-wrapper">
                         <ReactQuill
+                            ref={quillRef}
                             theme="snow"
                             value={content}
                             onChange={setContent}
