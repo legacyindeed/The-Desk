@@ -55,7 +55,9 @@ const HomePage = () => {
     return (
         <div className="home-dashboard">
             <header className="home-nav">
-                <span className="brand">The Desk</span>
+                <span className="brand" onClick={() => navigate('/home')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '2rem', color: '#3b82f6' }}>✎</span> The Desk
+                </span>
                 <div className="nav-actions">
                     <button className="nav-btn" onClick={() => navigate('/analytics')}>History</button>
                     <button className="nav-btn" onClick={() => navigate('/dashboard')}>Stats</button>

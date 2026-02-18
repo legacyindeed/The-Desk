@@ -12,15 +12,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1.5rem 0 0.5rem 0;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .brand {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800;
+    font-size: 2rem !important;
+    /* Bigger */
+    color: #020617;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .nav-actions {
