@@ -100,6 +100,16 @@
     min-height: 500px;
 }
 
+/* Fix placeholder alignment — must match editor padding exactly */
+.quill-wrapper .ql-editor.ql-blank::before {
+    left: 0;
+    right: 0;
+    font-style: italic;
+    color: #e2e8f0;
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+}
+
 .quill-wrapper .ql-toolbar.ql-snow {
     border: none;
     border-bottom: 1px solid rgba(15, 23, 42, 0.05);

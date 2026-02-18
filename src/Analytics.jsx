@@ -58,15 +58,15 @@ const Analytics = () => {
     return (
         <div className="analytics-page">
 
-            <header className="sanctuary-nav">
+            <header className="sanctuary-nav analytics-nav">
                 <div className="nav-left">
                     <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
                         The Desk
                     </span>
                 </div>
                 <div className="nav-right">
-                    <button className="btn-secondary-fancy" onClick={clearHistory}>Clear History</button>
-                    <button className="btn-secondary-fancy" onClick={() => navigate('/dashboard')}>Dashboard</button>
+                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear History</button>
+                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={() => navigate('/dashboard')}>Dashboard</button>
                     <BurgerMenu />
                 </div>
             </header>
