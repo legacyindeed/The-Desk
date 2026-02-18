@@ -65,32 +65,11 @@ const HomePage = () => {
 
             <main className="home-content container">
                 <section className="welcome-section animate-up">
-                    <h1>Welcome back, <span className="highlight">{user?.displayName || 'Seeker'}</span>.</h1>
+                    <h1>Welcome back, <span className="highlight">{user?.displayName?.split(' ')[0] || user?.email?.split('@')[0] || 'Seeker'}</span>.</h1>
                     <p className="date">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 </section>
 
-                <div className="dashboard-grid">
-                    <div className="card quote-card glass-blur animate-up" style={{ animationDelay: '0.1s' }}>
-                        <h3>Daily Inspiration</h3>
-                        <blockquote>"{quote.text}"</blockquote>
-                        <cite>— {quote.author}</cite>
-                    </div>
-
-                    <div className="card fact-card glass-blur animate-up" style={{ animationDelay: '0.2s' }}>
-                        <h3>Did You Know?</h3>
-                        <p>{fact}</p>
-                    </div>
-
-                    <div className="card article-card glass-blur animate-up" style={{ animationDelay: '0.3s' }}>
-                        <h3>Recommended Read</h3>
-                        <h4>{recommendation.title}</h4>
-                        <p>{recommendation.desc}</p>
-                        <a href={recommendation.url} target="_blank" rel="noopener noreferrer" className="read-more">Read Article →</a>
-                    </div>
-                </div>
-
-                <section className="quick-actions animate-up" style={{ animationDelay: '0.4s' }}>
-                    <h2>Ready to Create?</h2>
+                <section className="quick-actions animate-up" style={{ animationDelay: '0.1s', marginTop: '2rem', marginBottom: '3rem' }}>
                     <div className="action-buttons">
                         <button className="action-btn write" onClick={() => navigate('/track/write')}>
                             <span className="icon">✍️</span> Start Writing
@@ -100,6 +79,26 @@ const HomePage = () => {
                         </button>
                     </div>
                 </section>
+
+                <div className="dashboard-grid">
+                    <div className="card quote-card glass-blur animate-up" style={{ animationDelay: '0.2s' }}>
+                        <h3>Daily Inspiration</h3>
+                        <blockquote>"{quote.text}"</blockquote>
+                        <cite>— {quote.author}</cite>
+                    </div>
+
+                    <div className="card fact-card glass-blur animate-up" style={{ animationDelay: '0.3s' }}>
+                        <h3>Did You Know?</h3>
+                        <p>{fact}</p>
+                    </div>
+
+                    <div className="card article-card glass-blur animate-up" style={{ animationDelay: '0.4s' }}>
+                        <h3>Recommended Read</h3>
+                        <h4>{recommendation.title}</h4>
+                        <p>{recommendation.desc}</p>
+                        <a href={recommendation.url} target="_blank" rel="noopener noreferrer" className="read-more">Read Article →</a>
+                    </div>
+                </div>
             </main>
         </div>
     );
