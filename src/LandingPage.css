@@ -28,8 +28,9 @@
 
 .nav-container {
     width: 100%;
-    max-width: 1400px;
-    padding: 0 1.5rem;
+    max-width: 1600px;
+    /* Increased from 1400px */
+    padding: 0 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,7 +87,8 @@
 }
 
 .nav-link {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    /* Increased from 0.875rem */
     font-weight: 300;
     color: #9CA3AF;
     /* text-gray-400 */
@@ -116,8 +118,10 @@
 }
 
 .btn-get-started {
-    padding: 0.7rem 2rem;
-    font-size: 0.75rem;
+    padding: 0.85rem 2.5rem;
+    /* Increased padding */
+    font-size: 0.9rem;
+    /* Increased font size */
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -137,10 +141,10 @@
 /* Main Content */
 .landing-main {
     padding-top: 8rem;
-    /* pt-32 */
     padding-bottom: 5rem;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
+    /* Increased from 1400px */
     margin: 0 auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -224,16 +228,15 @@
     margin-bottom: 2rem;
     line-height: 1;
     letter-spacing: -0.02em;
-    font-size: 4.5rem;
-    /* text-7xl */
+    font-size: 5.5rem;
+    /* Increased from 4.5rem */
 }
 
 @media (min-width: 768px) {
     .hero-title {
-        font-size: 8rem;
+        font-size: 9.5rem;
+        /* Increased from 8rem */
     }
-
-    /* text-9xl */
 }
 
 .hero-subtitle-script {
@@ -268,26 +271,26 @@
 }
 
 .hero-desc {
-    font-size: 1.125rem;
-    /* text-lg */
+    font-size: 1.25rem;
+    /* Increased from 1.125rem */
     color: #9CA3AF;
-    /* text-gray-400 */
     font-weight: 300;
     line-height: 1.625;
-    max-width: 36rem;
+    max-width: 42rem;
+    /* Increased max-width for balance */
     margin: 0 auto 3rem auto;
 }
 
 @media (min-width: 768px) {
     .hero-desc {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
+        /* Increased from 1.25rem */
     }
-
-    /* text-xl */
 }
 
 .cta-button {
-    padding: 1rem 2.5rem;
+    padding: 1.25rem 3rem;
+    /* Increased padding */
     background: var(--gold-accent);
     color: black;
     border-radius: 2px;
@@ -304,7 +307,8 @@
 .cta-content {
     position: relative;
     z-index: 10;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    /* Increased from 0.75rem */
     letter-spacing: 0.2em;
     text-transform: uppercase;
     font-weight: 700;
@@ -395,14 +399,15 @@
 
 .feature-title {
     font-family: 'Italiana', serif;
-    font-size: 1.875rem;
-    /* text-3xl */
+    font-size: 2.25rem;
+    /* Increased from 1.875rem */
     color: white;
     margin-bottom: 1rem;
 }
 
 .feature-desc {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    /* Increased from 0.875rem */
     /* text-sm */
     color: #6B7280;
     /* text-gray-500 */
@@ -500,17 +505,20 @@
 .landing-footer {
     width: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 3rem 0;
-    /* py-12 */
+    padding: 4rem 0;
+    /* Increased padding */
     background: #050505;
     position: relative;
     z-index: 20;
+    margin-top: auto;
+    /* Push to bottom if content is short */
 }
 
 .footer-container {
-    max-width: 1400px;
+    max-width: 1600px;
+    /* Increased from 1400px */
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -530,7 +538,8 @@
 }
 
 .footer-link {
-    font-size: 0.625rem;
+    font-size: 0.75rem;
+    /* Increased from 0.625rem */
     color: #6B7280;
     text-decoration: none;
     text-transform: uppercase;
