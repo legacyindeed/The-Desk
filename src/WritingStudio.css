@@ -55,11 +55,36 @@
 }
 
 /* Layout */
+/* Layout */
+.studio-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: relative;
+}
+
+.center-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #020617;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .studio-layout {
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 4rem;
-    padding-top: 4rem;
+    padding-top: 1rem;
     position: relative;
     z-index: 10;
 }
@@ -301,14 +326,26 @@
 }
 
 @media (max-width: 768px) {
+    .studio-nav {
+        padding: 0.5rem 1rem;
+    }
+
     .studio-layout {
-        padding-top: 2rem;
+        padding-top: 1rem;
         gap: 2rem;
+    }
+
+    .center-title {
+        font-size: 1.25rem;
     }
 
     .title-input-fancy {
         font-size: 2.5rem;
         margin-bottom: 1.5rem;
+    }
+
+    .zen-btn {
+        display: none;
     }
 
     .quill-wrapper .ql-container.ql-snow {
