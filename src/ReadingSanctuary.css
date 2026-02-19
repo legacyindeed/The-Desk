@@ -1,41 +1,44 @@
+/* ReadingSanctuary.css - Modern Luxe */
+
 .sanctuary-page {
     min-height: 100vh;
     padding-bottom: 8rem;
     position: relative;
     overflow: hidden;
-    background: var(--bg-dark);
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .sanctuary-main {
     max-width: 800px;
     margin: 2rem auto;
-    /* Reduced from 4rem */
     position: relative;
     z-index: 10;
 }
 
 .reading-form-card {
     padding: 3rem 4rem;
-    background: var(--card-bg);
+    background: white;
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: 40px;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+    /* Lighter shadow */
 }
 
 .reading-form-card h1 {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: 3rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
     text-align: center;
     letter-spacing: -0.01em;
-    color: var(--text-main);
+    color: var(--text-primary);
 }
 
 .reading-form-card p.subtitle {
     text-align: center;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-size: 1.1rem;
     margin-bottom: 3rem;
 }
@@ -47,78 +50,107 @@
     margin-bottom: 2rem;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
+/* Input Styles - Luxe Light */
 .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
-    font-weight: 800;
+    font-weight: 700;
+    color: var(--accent-gold);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #94a3b8;
+    letter-spacing: 0.15em;
 }
 
-.form-group input,
-.form-group textarea {
-    padding: 1.25rem;
-    background: #f8fafc;
-    border: 1px solid #f1f5f9;
-    border-radius: 16px;
-    font-size: 1.1rem;
+.input-fancy {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(18, 18, 18, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--text-primary);
     transition: all 0.3s;
-    font-family: inherit;
+    font-family: var(--font-sans);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #3b82f6;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08);
+.input-fancy:focus {
+    background: white;
+    border-color: var(--accent-gold);
     outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.form-footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
+.textarea-fancy {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(18, 18, 18, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    min-height: 120px;
+    resize: vertical;
+    transition: all 0.3s;
+    font-family: var(--font-sans);
 }
 
-.quote {
-    font-style: italic;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    font-family: 'Lora', serif;
+.textarea-fancy:focus {
+    background: white;
+    border-color: var(--accent-gold);
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-    .reading-form-card {
-        padding: 2rem 1.5rem;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 24px;
-    }
+.full-width {
+    grid-column: span 2;
+}
 
-    .reading-form-card h1 {
-        font-size: 2rem;
-        margin-bottom: 0.25rem;
-    }
+.btn-submit-fancy {
+    width: 100%;
+    padding: 1.25rem;
+    background: var(--text-primary);
+    /* Dark button */
+    color: var(--bg-primary);
+    /* Light text */
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
 
-    .reading-form-card p.subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 2rem;
-    }
+.btn-submit-fancy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    background: black;
+}
 
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
+.error-msg-fancy {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    /* Red fade */
+    color: #b91c1c;
+    /* Dark red */
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+}
 
-    .form-group input,
-    .form-group textarea {
-        font-size: 1rem;
-        padding: 1rem;
-    }
+.success-msg-fancy {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    /* Green fade */
+    color: #047857;
+    /* Dark green */
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.9rem;
 }

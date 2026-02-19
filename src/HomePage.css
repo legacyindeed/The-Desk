@@ -1,8 +1,8 @@
 /* HomePage.css */
 .home-dashboard {
     min-height: 100vh;
-    background-color: var(--bg-dark);
-    color: var(--text-main);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     padding: 2rem;
     position: relative;
     overflow-x: hidden;
@@ -18,11 +18,11 @@
 }
 
 .brand {
-    font-family: var(--font-serif);
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: 2rem !important;
     /* Bigger */
-    color: var(--text-main);
+    color: var(--text-primary);
     letter-spacing: -0.03em;
     display: flex;
     align-items: center;
@@ -38,7 +38,7 @@
 .nav-btn {
     background: transparent;
     border: none;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -46,7 +46,7 @@
 }
 
 .nav-btn:hover {
-    color: var(--gold-accent);
+    color: var(--accent-bold);
 }
 
 .home-content {
@@ -56,15 +56,17 @@
 }
 
 .welcome-section h1 {
-    font-family: var(--font-serif);
-    font-size: 2.5rem;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
     margin-bottom: 0.5rem;
-    color: var(--text-main);
+    color: var(--text-primary);
 }
 
 .welcome-section .date {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .dashboard-grid {
@@ -75,26 +77,26 @@
 }
 
 .card {
-    background: var(--card-bg);
-    backdrop-filter: blur(10px);
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     border-radius: 12px;
     padding: 2rem;
     text-align: left;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     border: 1px solid var(--border-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: var(--gold-accent);
-    background: rgba(20, 20, 20, 0.8);
+    border-color: var(--accent-gold);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .card h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    color: var(--gold-accent);
+    color: var(--accent-gold);
     margin-bottom: 1rem;
 }
 
