@@ -44,7 +44,6 @@ const DashboardPage = () => {
                         ← Back
                     </button>
                 </div>
-                <div className="dashboard-page-title">Dashboard</div>
                 <div className="nav-right">
                     <BurgerMenu />
                 </div>

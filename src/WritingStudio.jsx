@@ -178,18 +178,18 @@ const WritingStudio = () => {
                 </button>
             )}
 
-            <header className="sanctuary-nav studio-nav">
+            <header className="sanctuary-nav">
                 <div className="nav-left">
-                    <button className="btn-back-fancy" onClick={() => navigate('/analytics')}>
+                    <button className="btn-back-fancy" onClick={() => navigate('/analytics')} style={{ marginRight: '2rem' }}>
                         <span>←</span> Back
                     </button>
-                </div>
-                <div className="center-title">
-                    Writing
+                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+                        The Desk
+                    </span>
                 </div>
                 <div className="nav-right">
                     {!isZen && (
-                        <button className="btn-secondary-fancy zen-btn" onClick={() => setIsZen(true)}>
+                        <button className="btn-secondary-fancy" onClick={() => setIsZen(true)}>
                             Zen Focus
                         </button>
                     )}
@@ -255,7 +255,20 @@ const WritingStudio = () => {
                             )}
                         </div>
 
-
+                        <div className="glass-blur sidebar-card">
+                            <h4>Vibe</h4>
+                            <div className="mood-selector">
+                                {['Creative', 'Focused', 'Reflective', 'Neutral'].map(m => (
+                                    <button
+                                        key={m}
+                                        className={`mood-tag ${mood === m ? 'active' : ''}`}
+                                        onClick={() => setMood(m)}
+                                    >
+                                        {m}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
                         <div className="glass-blur sidebar-card tips-card">
                             <h4>Writer's Tip</h4>

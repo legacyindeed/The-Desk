@@ -89,7 +89,6 @@ const Analytics = () => {
                         ← Back
                     </button>
                 </div>
-                <div className="mobile-page-title">Your <span className="gradient-text">Journey</span></div>
                 <div className="nav-right">
                     <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>
                     <BurgerMenu />
