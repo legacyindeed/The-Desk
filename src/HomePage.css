@@ -1,8 +1,8 @@
 /* HomePage.css */
 .home-dashboard {
     min-height: 100vh;
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
     padding: 2rem;
     position: relative;
     overflow-x: hidden;
@@ -22,7 +22,7 @@
     font-weight: 800;
     font-size: 2rem !important;
     /* Bigger */
-    color: #020617;
+    color: var(--text-main);
     letter-spacing: -0.03em;
     display: flex;
     align-items: center;
@@ -38,7 +38,7 @@
 .nav-btn {
     background: transparent;
     border: none;
-    color: var(--color-text-secondary);
+    color: var(--text-muted);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -46,7 +46,7 @@
 }
 
 .nav-btn:hover {
-    color: var(--color-primary);
+    color: var(--gold-accent);
 }
 
 .home-content {
@@ -59,11 +59,12 @@
     font-family: var(--font-serif);
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
+    color: var(--text-main);
 }
 
 .welcome-section .date {
     font-size: 0.9rem;
-    color: var(--color-text-muted);
+    color: var(--text-muted);
 }
 
 .dashboard-grid {
@@ -74,24 +75,26 @@
 }
 
 .card {
-    background: rgba(var(--color-background-secondary), 0.6);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 2rem;
     text-align: left;
     transition: transform 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .card:hover {
     transform: translateY(-5px);
+    border-color: var(--gold-accent);
+    background: rgba(20, 20, 20, 0.8);
 }
 
 .card h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    color: var(--color-primary);
+    color: var(--gold-accent);
     margin-bottom: 1rem;
 }
 
@@ -100,31 +103,38 @@
     font-size: 1.25rem;
     margin-bottom: 1rem;
     line-height: 1.6;
+    color: var(--text-main);
 }
 
 .quote-card cite {
     display: block;
     font-style: italic;
     font-size: 0.9rem;
-    color: var(--color-text-muted);
+    color: var(--text-muted);
 }
 
 .fact-card p {
     font-size: 1.1rem;
     line-height: 1.6;
+    color: var(--text-main);
 }
 
 .article-card h4 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+    color: var(--text-main);
 }
 
 .read-more {
     display: inline-block;
     margin-top: 1rem;
     text-decoration: none;
-    color: var(--color-accent);
+    color: var(--gold-accent);
     font-weight: 600;
+}
+
+.read-more:hover {
+    text-decoration: underline;
 }
 
 .quick-actions {
@@ -135,6 +145,7 @@
     font-size: 1.8rem;
     margin-bottom: 2rem;
     font-family: var(--font-serif);
+    color: var(--text-main);
 }
 
 .action-buttons {
@@ -148,30 +159,37 @@
     align-items: center;
     gap: 0.5rem;
     padding: 1rem 2rem;
-    border: none;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
-    background: var(--color-surface);
-    color: var(--color-text-primary);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background: var(--card-bg);
+    color: var(--text-main);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    border-color: var(--gold-accent);
 }
 
 .action-btn.write {
-    background: #eef2ff;
-    color: #4f46e5;
+    /* Keep generic or style specifically */
+}
+
+.action-btn.write:hover {
+    color: var(--gold-accent);
 }
 
 .action-btn.read {
-    background: #fffbeb;
-    color: #d97706;
+    /* Keep generic or style specifically */
+}
+
+.action-btn.read:hover {
+    color: var(--gold-accent);
 }
 
 @media (max-width: 768px) {

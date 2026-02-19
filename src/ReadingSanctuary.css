@@ -3,7 +3,7 @@
     padding-bottom: 8rem;
     position: relative;
     overflow: hidden;
-    background: #ffffff;
+    background: var(--bg-dark);
 }
 
 .sanctuary-main {
@@ -16,11 +16,11 @@
 
 .reading-form-card {
     padding: 3rem 4rem;
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--card-bg);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(15, 23, 42, 0.05);
+    border: 1px solid var(--border-color);
     border-radius: 40px;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
 }
 
 .reading-form-card h1 {
@@ -30,12 +30,12 @@
     margin-bottom: 0.5rem;
     text-align: center;
     letter-spacing: -0.01em;
-    color: #020617;
+    color: var(--text-main);
 }
 
 .reading-form-card p.subtitle {
     text-align: center;
-    color: #64748b;
+    color: var(--text-muted);
     font-size: 1.1rem;
     margin-bottom: 3rem;
 }

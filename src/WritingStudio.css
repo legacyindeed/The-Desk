@@ -2,7 +2,7 @@
 
 .studio-page {
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: var(--bg-dark);
     padding-bottom: 6rem;
     position: relative;
     overflow: hidden;
@@ -71,7 +71,7 @@
     font-family: var(--font-serif);
     font-size: 1.5rem;
     font-weight: 600;
-    color: #020617;
+    color: var(--text-main);
 }
 
 .nav-right {
@@ -102,13 +102,14 @@
     font-size: 3.5rem;
     font-weight: 500;
     margin-bottom: 2.5rem;
-    color: #020617;
+    color: var(--text-main);
     background: transparent;
     letter-spacing: -0.01em;
 }
 
 .title-input-fancy::placeholder {
-    color: #e2e8f0;
+    color: var(--text-muted);
+    opacity: 0.5;
 }
 
 /* Quill Customization */
@@ -117,7 +118,7 @@
     font-size: 1.25rem;
     line-height: 1.8;
     font-family: var(--font-serif);
-    color: #020617;
+    color: var(--text-main);
 }
 
 .quill-wrapper .ql-editor {
@@ -130,14 +131,15 @@
     left: 0;
     right: 0;
     font-style: italic;
-    color: #e2e8f0;
+    color: var(--text-muted);
     font-family: var(--font-serif);
     font-size: 1.25rem;
+    opacity: 0.5;
 }
 
 .quill-wrapper .ql-toolbar.ql-snow {
     border: none;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+    border-bottom: 1px solid var(--border-color);
     padding: 0.5rem 0 1.5rem 0;
     margin-bottom: 3rem;
     display: flex;
@@ -158,19 +160,19 @@
     padding: 6px;
     border-radius: 8px;
     transition: all 0.2s;
-    color: #64748b;
+    color: var(--text-muted);
 }
 
 .ql-snow.ql-toolbar button:hover,
 .ql-snow .ql-toolbar button:hover {
-    background: rgba(15, 23, 42, 0.05);
-    color: #020617;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--gold-accent);
 }
 
 .ql-snow.ql-toolbar button.ql-active,
 .ql-snow .ql-toolbar button.ql-active {
-    color: #3b82f6 !important;
-    background: rgba(59, 130, 246, 0.05);
+    color: var(--gold-accent) !important;
+    background: rgba(212, 175, 55, 0.1);
 }
 
 .ql-snow .ql-stroke {
