@@ -1,9 +1,12 @@
+/* ReadingSanctuary.css */
+
 .sanctuary-page {
     min-height: 100vh;
     padding-bottom: 8rem;
     position: relative;
     overflow: hidden;
     background: #ffffff;
+    padding-top: 2rem;
 }
 
 .sanctuary-main {
@@ -12,6 +15,8 @@
     /* Reduced from 4rem */
     position: relative;
     z-index: 10;
+    padding: 0 2rem;
+    /* Ensure side padding */
 }
 
 .reading-form-card {
@@ -24,13 +29,27 @@
 }
 
 .reading-form-card h1 {
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 3rem;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     text-align: center;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
     color: #020617;
+}
+
+.quote {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .sanctuary-main {
+        padding: 0 1.5rem;
+    }
 }
 
 .reading-form-card p.subtitle {

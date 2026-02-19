@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@100;300;400;600;800&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600;800&family=Manrope:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
 :root {
   --bg-color: #fafafa;
@@ -8,8 +8,12 @@
   --secondary-glow: rgba(245, 158, 11, 0.05);
   /* Soft Amber */
   --tertiary-glow: rgba(168, 85, 247, 0.05);
-  --font-serif: 'Lora', serif;
+
+  /* Unified Typography */
+  --font-serif: 'Plus Jakarta Sans', sans-serif;
+  /* Mapping serif var to Sans for consistency */
   --font-sans: 'Plus Jakarta Sans', sans-serif;
+
   --accent-blue: #3b82f6;
   --text-main: #020617;
   --text-muted: #64748b;
@@ -27,7 +31,7 @@ body {
   font-family: var(--font-sans);
   background-color: #ffffff;
   color: var(--text-main);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,8 +53,8 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: rgba(255, 255, 255, 0.85);
-  /* Default light sanctuary */
+  background: rgba(255, 255, 255, 0.92);
+  /* Increased opacity for cleaner look */
   backdrop-filter: blur(10px);
 }
 
@@ -58,9 +62,13 @@ body {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 .serif-text {
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 p,
@@ -93,10 +101,13 @@ button {
   background: radial-gradient(circle, var(--secondary-glow) 0%, transparent 70%);
 }
 
+/* Global Container - The source of truth for padding */
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
+  /* Wider for modern screens */
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
 }
 
 /* Glassmorphism utility */

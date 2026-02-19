@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+/* Analytics.css */
 
 .analytics-page {
     min-height: 100vh;
@@ -7,23 +7,23 @@
     position: relative;
     overflow: hidden;
     padding-bottom: 8rem;
+    padding-top: 2rem;
 }
 
 .analytics-header {
-    padding: 2rem 0 2rem 0;
+    padding: 0 0 2rem 0;
     text-align: center;
 }
 
 .analytics-nav.container {
-    max-width: 1200px;
-    /* Match HomePage.css and Dashboard.css */
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 1rem 2rem;
-    /* Ensure padding inside container */
+    padding: 1rem 0;
+    /* Remove side padding as it's in container */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Center items vertically */
+    width: 100%;
 }
 
 .nav-right {
@@ -33,17 +33,82 @@
 }
 
 .hero-title {
-    font-family: var(--font-serif);
-    font-size: 4rem;
-    font-weight: 500;
+    font-family: var(--font-sans);
+    font-size: 3.5rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
 }
 
+/* Rest of the file uses var(--font-sans) by default from index.css unless overridden */
 .analytics-main {
-    max-width: 900px;
+    max-width: 1000px;
+    /* Slightly wider */
     margin: 0 auto;
     position: relative;
     z-index: 10;
+    padding: 0 2rem;
+    /* Ensure side padding */
+}
+
+@media (max-width: 768px) {
+    .analytics-main {
+        padding: 0 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+}
+
+.author {
+    font-family: var(--font-sans);
+    font-style: italic;
+    color: #64748b;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.reflections,
+.excerpt {
+    font-family: var(--font-sans);
+    /* Unified */
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #475569;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-top: 1rem;
+    /* Show up to 4 lines, then fade — no mid-word cuts */
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.entry-action-btn {
+    padding: 0.45rem 1rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: #f8fafc;
+    color: #64748b;
+    font-family: var(--font-sans);
+}
+
+.full-text {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #334155;
+    margin-top: 2rem;
 }
 
 .entries-timeline {
