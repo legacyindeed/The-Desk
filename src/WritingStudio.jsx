@@ -255,20 +255,7 @@ const WritingStudio = () => {
                             )}
                         </div>
 
-                        <div className="glass-blur sidebar-card">
-                            <h4>Vibe</h4>
-                            <div className="mood-selector">
-                                {['Creative', 'Focused', 'Reflective', 'Neutral'].map(m => (
-                                    <button
-                                        key={m}
-                                        className={`mood-tag ${mood === m ? 'active' : ''}`}
-                                        onClick={() => setMood(m)}
-                                    >
-                                        {m}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+
 
                         <div className="glass-blur sidebar-card tips-card">
                             <h4>Writer's Tip</h4>
