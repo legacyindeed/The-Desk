@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BurgerMenu from './BurgerMenu';
+import Header from './Header';
 import './Analytics.css';
-
 import { auth, db } from './firebase';
 import { collection, onSnapshot, query, orderBy, deleteDoc, getDocs, doc } from 'firebase/firestore';
 
@@ -79,21 +78,12 @@ const Analytics = () => {
     return (
         <div className="analytics-page">
 
-            <header className="sanctuary-nav analytics-nav container">
-                <div className="nav-left">
-                    <button
-                        onClick={() => navigate(-1)}
-                        style={{ background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                        title="Go Back"
-                    >
-                        ← Back
-                    </button>
-                </div>
-                <div className="nav-right">
-                    <button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>
-                    <BurgerMenu />
-                </div>
-            </header>
+            <Header
+                showBack={true}
+                backPath="/dashboard"
+                title="History"
+                actions={<button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>}
+            />
 
             <header className="analytics-header container">
                 <h1 className="hero-title">Your <span className="gradient-text">Journey</span></h1>

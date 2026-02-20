@@ -1,0 +1,164 @@
+/* Header.css - Standardized navigation for The Desk */
+
+.app-header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.header-grid {
+    display: grid;
+    /* Balanced grid for perfect centering */
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 1.5rem 0;
+    min-height: 80px;
+}
+
+.header-left {
+    justify-self: start;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-center {
+    justify-self: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.header-right {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Brand Styles */
+.header-brand {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+
+.header-brand:hover {
+    transform: scale(1.02);
+}
+
+.header-brand .brand-icon {
+    font-size: 1.8rem;
+    color: var(--accent-blue);
+}
+
+.header-brand.mini {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.header-brand.mini .brand-icon {
+    font-size: 1.4rem;
+}
+
+/* Title Styles */
+.header-title {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+/* Back Button Overrides */
+.header-back {
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 12px !important;
+    font-size: 0.95rem !important;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-grid {
+        padding: 0.75rem 0;
+        min-height: 64px;
+        grid-template-columns: 80px 1fr 80px;
+        /* Fixed sides for centering */
+    }
+
+    .header-title {
+        font-size: 1.25rem;
+        /* Prevent long titles from breaking layout */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .header-brand .brand-text {
+        font-size: 1.1rem;
+    }
+
+    .header-brand.mini .brand-text {
+        display: none;
+    }
+
+    .header-right {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-grid {
+        grid-template-columns: 60px 1fr 60px;
+    }
+
+    .header-left {
+        min-width: 0;
+    }
+
+    .header-back span {
+        display: none;
+    }
+
+    .header-back {
+        padding: 0.6rem 0.8rem !important;
+        border-radius: 10px !important;
+    }
+
+    .header-center {
+        padding: 0 0.25rem;
+    }
+
+    .header-title {
+        font-size: 1.1rem;
+    }
+
+    .header-brand .brand-icon {
+        font-size: 1.4rem;
+    }
+}

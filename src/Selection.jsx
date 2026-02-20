@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from './Header';
 import './Selection.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,18 +8,7 @@ const Selection = () => {
 
     return (
         <div className="selection-page">
-            <nav className="sanctuary-nav">
-                <div className="container nav-content-wrapper">
-                    <div className="nav-left">
-                        <button className="btn-back-fancy" onClick={() => navigate('/dashboard')}>
-                            <span>←</span> Back
-                        </button>
-                    </div>
-                    <div className="nav-right">
-                        <span className="sanctuary-brand">The Desk</span>
-                    </div>
-                </div>
-            </nav>
+            <Header showBack={true} backPath="/dashboard" />
 
             <div className="selection-content container">
                 <h1 className="selection-title">Select Your Session</h1>

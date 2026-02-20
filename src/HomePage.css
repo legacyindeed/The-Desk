@@ -8,46 +8,6 @@
     overflow-x: hidden;
 }
 
-.home-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0 0.5rem 0;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.brand {
-    font-family: var(--font-serif);
-    font-weight: 800;
-    font-size: 2rem !important;
-    /* Bigger */
-    color: #020617;
-    letter-spacing: -0.03em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.nav-actions {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-btn {
-    background: transparent;
-    border: none;
-    color: var(--color-text-secondary);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.nav-btn:hover {
-    color: var(--color-primary);
-}
 
 .home-content {
     max-width: 1200px;

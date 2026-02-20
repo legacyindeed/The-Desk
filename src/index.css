@@ -41,6 +41,18 @@ body {
   flex-direction: column;
 }
 
+/* Global Page Padding for Fixed Header */
+.home-dashboard,
+.analytics-page,
+.settings-page,
+.profile-container,
+.selection-page,
+.sanctuary-page,
+.studio-page,
+.dashboard-mode {
+  padding-top: 80px;
+}
+
 /* Global Application Background - High-end Cinematic */
 .app-sanctuary-bg {
   position: fixed;

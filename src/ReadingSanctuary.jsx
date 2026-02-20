@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Header from './Header';
 import './ReadingSanctuary.css';
-
 import { db, auth } from './firebase';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 
@@ -59,16 +59,7 @@ const ReadingSanctuary = () => {
 
     return (
         <div className="sanctuary-page">
-            <header className="sanctuary-nav">
-                <div className="nav-left">
-                    <button className="btn-back-fancy" onClick={() => navigate('/analytics')}>
-                        <span>←</span> Back
-                    </button>
-                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer', marginLeft: '2rem' }}>
-                        The Desk
-                    </span>
-                </div>
-            </header>
+            <Header showBack={true} backPath="/analytics" />
 
             <main className="container sanctuary-main animate-up">
                 <div className="reading-form-card glass-blur">

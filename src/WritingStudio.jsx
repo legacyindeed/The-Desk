@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReactQuill, { Quill } from 'react-quill-new';
+import Header from './Header';
 import 'react-quill-new/dist/quill.snow.css';
 import './WritingStudio.css';
-import BurgerMenu from './BurgerMenu';
 
 import { auth, db, storage } from './firebase';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
@@ -178,24 +178,17 @@ const WritingStudio = () => {
                 </button>
             )}
 
-            <header className="sanctuary-nav">
-                <div className="nav-left">
-                    <button className="btn-back-fancy" onClick={() => navigate('/analytics')} style={{ marginRight: '2rem' }}>
-                        <span>←</span> Back
-                    </button>
-                    <span className="sanctuary-brand" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                        The Desk
-                    </span>
-                </div>
-                <div className="nav-right">
-                    {!isZen && (
+            {!isZen && (
+                <Header
+                    showBack={true}
+                    backPath="/analytics"
+                    actions={
                         <button className="btn-secondary-fancy" onClick={() => setIsZen(true)}>
                             Zen Focus
                         </button>
-                    )}
-                    <BurgerMenu />
-                </div>
-            </header>
+                    }
+                />
+            )}
 
             <main className="container studio-layout animate-up">
                 <section className="editor-section glass-blur">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from './Header';
 import './Settings.css';
-import BurgerMenu from './BurgerMenu';
 import { auth, db } from './firebase';
 import { doc, getDoc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore';
 
@@ -68,31 +68,7 @@ const Settings = () => {
     return (
         <div className="settings-page">
 
-            <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', marginBottom: '1rem' }}>
-                    <div style={{ justifySelf: 'start' }}>
-                        <button
-                            onClick={() => navigate(-1)}
-                            className="btn-back-fancy"
-                            style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                color: '#0f172a', // Darker for legibility
-                                background: 'none',
-                                border: 'none',
-                                fontSize: '1.1rem', // Larger
-                                fontWeight: 700,    // Bolder
-                                cursor: 'pointer',
-                                gap: '0.5rem'
-                            }}
-                        >
-                            ← Back
-                        </button>
-                    </div>
-                    <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', fontWeight: 700, margin: 0, color: '#020617', justifySelf: 'center' }}>Settings</h2>
-                    <div style={{ justifySelf: 'end' }}><BurgerMenu /></div>
-                </div>
-            </div>
+            <Header title="Settings" showBack={true} backPath="/home" />
 
             <main className="container settings-main animate-up">
                 <div className="glass settings-card">

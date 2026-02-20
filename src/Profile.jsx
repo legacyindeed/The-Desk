@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db } from './firebase';
 import { signOut } from 'firebase/auth';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import Header from './Header';
 import './Profile.css';
 
 const Profile = () => {
@@ -67,10 +68,8 @@ const Profile = () => {
 
     return (
         <div className="profile-container animate-up">
+            <Header title="Your Profile" showBack={true} />
             <header className="profile-header">
-                <button className="btn-back-fancy" style={{ position: 'absolute', top: '2rem', left: '2rem' }} onClick={() => navigate(-1)}>
-                    ← Back
-                </button>
 
                 <div className="profile-avatar-placeholder">
                     {initials}

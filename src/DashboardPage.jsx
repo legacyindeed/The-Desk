@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import BurgerMenu from './BurgerMenu';
+import Header from './Header';
 import './Dashboard.css';
 import { auth, db } from './firebase';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
@@ -34,20 +34,7 @@ const DashboardPage = () => {
     return (
         <div className="app dashboard-mode">
 
-            <nav className="sanctuary-nav container">
-                <div className="nav-left" style={{ display: 'flex', alignItems: 'center' }}>
-                    <button
-                        onClick={() => navigate(-1)}
-                        style={{ background: 'none', border: 'none', fontSize: '1rem', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                        title="Go Back"
-                    >
-                        ← Back
-                    </button>
-                </div>
-                <div className="nav-right">
-                    <BurgerMenu />
-                </div>
-            </nav>
+            <Header title="Dashboard" />
 
             <main className="container dashboard-container">
                 <Dashboard entries={entries} />

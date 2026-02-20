@@ -15,22 +15,6 @@
     text-align: center;
 }
 
-.analytics-nav.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1rem 0;
-    /* Remove side padding as it's in container */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
 
 .hero-title {
     font-family: var(--font-sans);
@@ -379,29 +363,6 @@
 
 @media (max-width: 768px) {
 
-    /* Stack action buttons below the brand on mobile */
-    .analytics-nav {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        padding: 1rem 1.25rem;
-    }
-
-    .analytics-nav .nav-left {
-        flex: 1;
-    }
-
-    .analytics-nav .nav-right {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-    }
-
-    .analytics-nav-btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-        border-radius: 10px;
-    }
 
     .entry-card {
         flex-direction: column;
