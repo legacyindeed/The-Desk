@@ -168,7 +168,9 @@ const Analytics = () => {
             {selectedEntry && (
                 <div className="modal-overlay" onClick={() => setSelectedEntry(null)}>
                     <div className="modal-content glass-blur animate-up" onClick={e => e.stopPropagation()}>
-                        <button className="modal-close" onClick={() => setSelectedEntry(null)}>✕</button>
+                        <div className="modal-close-row">
+                            <button className="modal-close" onClick={() => setSelectedEntry(null)}>✕</button>
+                        </div>
 
                         <div className="entry-header">
                             <span className={`entry-type-label ${selectedEntry.type}`}>{selectedEntry.type}</span>
