@@ -34,7 +34,7 @@ const DashboardPage = () => {
     return (
         <div className="app dashboard-mode">
 
-            <Header title="Dashboard" />
+            <Header title="Dashboard" showBack={true} backPath="/home" />
 
             <main className="container dashboard-container">
                 <Dashboard entries={entries} />
