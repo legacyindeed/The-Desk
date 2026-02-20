@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from './firebase'; // Assuming firebase auth is set up
 import './HomePage.css';
+import Header from './Header';
 import BurgerMenu from './BurgerMenu';
 
 const quotes = [
