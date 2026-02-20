@@ -168,67 +168,66 @@ const Analytics = () => {
             {selectedEntry && (
                 <div className="modal-overlay" onClick={() => setSelectedEntry(null)}>
                     <div className="modal-content glass-blur animate-up" onClick={e => e.stopPropagation()}>
-                        <div className="modal-close-row">
-                            <button className="modal-close" onClick={() => setSelectedEntry(null)}>✕</button>
+                        <div className="modal-header-section">
+                            <div className="modal-close-row">
+                                <button className="modal-close" onClick={() => setSelectedEntry(null)}>✕</button>
+                            </div>
+
+                            <div className="entry-header">
+                                <span className={`entry-type-label ${selectedEntry.type}`}>{selectedEntry.type}</span>
+                                <span className="entry-date">{selectedEntry.date} • {formatTime(selectedEntry.timestamp)}</span>
+                            </div>
+                            <h1 className="hero-title" style={{ fontSize: '2.5rem', marginTop: '1rem', marginBottom: '0.5rem' }}>{selectedEntry.title}</h1>
+
+                            {selectedEntry.type === 'reading' ? (
+                                <>
+                                    <p className="author" style={{ fontSize: '1.2rem' }}>by {selectedEntry.author}</p>
+                                    <div className="entry-stats" style={{ margin: '1.5rem 0', gap: '3rem' }}>
+                                        <div className="stat">
+                                            <p className="label">Pages Read</p>
+                                            <strong>{selectedEntry.pages}</strong>
+                                        </div>
+                                        <div className="stat">
+                                            <p className="label">Time Spent</p>
+                                            <strong>{selectedEntry.time} mins</strong>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="entry-header" style={{ marginBottom: '1rem' }}>
+                                        <span className="mood-badge">{selectedEntry.mood} Vibe</span>
+                                    </div>
+                                    <div className="entry-stats" style={{ margin: '1rem 0' }}>
+                                        <div className="stat">
+                                            <p className="label">Word Count</p>
+                                            <strong>{selectedEntry.wordCount} words</strong>
+                                        </div>
+                                        <div className="stat">
+                                            <p className="label">Characters</p>
+                                            <strong>{selectedEntry.charCount || 0}</strong>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
-                        <div className="entry-header">
-                            <span className={`entry-type-label ${selectedEntry.type}`}>{selectedEntry.type}</span>
-                            <span className="entry-date">{selectedEntry.date} • {formatTime(selectedEntry.timestamp)}</span>
-                        </div>
-
-                        {selectedEntry.type === 'reading' ? (
-                            <div className="modal-body">
-                                <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{selectedEntry.title}</h1>
-                                <p className="author" style={{ fontSize: '1.2rem' }}>by {selectedEntry.author}</p>
-
-                                <div className="entry-stats" style={{ margin: '2rem 0', gap: '3rem' }}>
-                                    <div className="stat">
-                                        <p className="label">Pages Read</p>
-                                        <strong>{selectedEntry.pages}</strong>
-                                    </div>
-                                    <div className="stat">
-                                        <p className="label">Time Spent</p>
-                                        <strong>{selectedEntry.time} mins</strong>
-                                    </div>
-                                </div>
-
+                        <div className="modal-scrollable-body">
+                            {selectedEntry.type === 'reading' ? (
                                 <div className="full-text">
                                     <h3 style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Reflections</h3>
                                     <p>{selectedEntry.reflections || "No reflections recorded for this session."}</p>
                                 </div>
-
-                                <div className="modal-actions">
-                                    <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
-                                    <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="modal-body">
-                                <h1 className="hero-title" style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>{selectedEntry.title}</h1>
-                                <div className="entry-header" style={{ marginBottom: '1rem' }}>
-                                    <span className="mood-badge">{selectedEntry.mood} Vibe</span>
-                                </div>
-                                <div className="entry-stats" style={{ margin: '1.5rem 0' }}>
-                                    <div className="stat">
-                                        <p className="label">Word Count</p>
-                                        <strong>{selectedEntry.wordCount} words</strong>
-                                    </div>
-                                    <div className="stat">
-                                        <p className="label">Characters</p>
-                                        <strong>{selectedEntry.charCount || 0}</strong>
-                                    </div>
-                                </div>
-
+                            ) : (
                                 <div className="full-text writing-content" dangerouslySetInnerHTML={{ __html: selectedEntry.content }}>
                                 </div>
+                            )}
 
-                                <div className="modal-actions">
-                                    <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
-                                    <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
-                                </div>
+                            <div className="modal-actions">
+                                <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
+                                <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
             )}
