@@ -292,6 +292,7 @@
     max-width: 900px;
     max-height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
     background: white;
     border-radius: 32px;
     padding: 2.5rem 3rem 3rem;
@@ -329,6 +330,9 @@
 
 .modal-body {
     padding-top: 2rem;
+    overflow-x: hidden;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .full-text {
@@ -337,15 +341,36 @@
     line-height: 1.9;
     color: #334155;
     margin-top: 2rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow-x: hidden;
 }
 
 .writing-content h1,
 .writing-content h2 {
     margin: 2rem 0 1rem 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .writing-content p {
     margin-bottom: 1.5rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.writing-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+.writing-content pre,
+.writing-content code {
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
 }
 
 .mood-badge {
