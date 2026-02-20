@@ -222,7 +222,9 @@ const Analytics = () => {
                                 <div className="full-text writing-content" dangerouslySetInnerHTML={{ __html: selectedEntry.content }}>
                                 </div>
                             )}
+                        </div>
 
+                        <div className="modal-footer">
                             <div className="modal-actions">
                                 <button className="entry-action-btn edit-btn" onClick={(e) => { setSelectedEntry(null); editEntry(e, selectedEntry); }}>✏️ Edit</button>
                                 <button className="entry-action-btn delete-btn" onClick={(e) => { setSelectedEntry(null); deleteEntry(e, selectedEntry.id); }}>🗑️ Delete</button>
