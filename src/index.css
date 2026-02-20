@@ -51,7 +51,7 @@ body {
   flex-direction: column;
 }
 
-/* Global Page Padding for Fixed Header */
+/* Global Page Padding for Fixed Header + consistent 2rem gap */
 .home-dashboard,
 .analytics-page,
 .settings-page,
@@ -60,7 +60,7 @@ body {
 .sanctuary-page,
 .studio-page,
 .dashboard-mode {
-  padding-top: 80px;
+  padding-top: calc(80px + 2rem);
 }
 
 /* Global Application Background - High-end Cinematic */
