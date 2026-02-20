@@ -7,11 +7,10 @@
     position: relative;
     overflow: hidden;
     padding-bottom: 8rem;
-    padding-top: 2rem;
 }
 
 .analytics-header {
-    padding: 0 0 2rem 0;
+    padding: 2rem 0 2rem 0;
     text-align: center;
 }
 
