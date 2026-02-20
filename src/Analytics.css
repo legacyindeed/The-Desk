@@ -69,7 +69,6 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    word-break: break-word;
     white-space: normal;
 }
 
@@ -346,7 +345,6 @@
 .modal-body {
     padding-top: 2rem;
     overflow-x: hidden;
-    overflow-wrap: break-word;
 }
 
 .modal-footer {
@@ -371,19 +369,16 @@
     line-height: 1.9;
     color: #334155;
     margin-top: 2rem;
-    overflow-wrap: break-word;
     overflow-x: hidden;
 }
 
 .writing-content h1,
 .writing-content h2 {
     margin: 2rem 0 1rem 0;
-    overflow-wrap: break-word;
 }
 
 .writing-content p {
     margin-bottom: 1.5rem;
-    overflow-wrap: break-word;
 }
 
 .writing-content img {
