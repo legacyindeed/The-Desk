@@ -58,8 +58,12 @@ const HomePage = () => {
             <Header
                 actions={
                     <>
-                        <button className="nav-btn" onClick={() => navigate('/analytics')}>History</button>
-                        <button className="nav-btn" onClick={() => navigate('/dashboard')}>Stats</button>
+                        <button className="header-pill-btn" onClick={() => navigate('/analytics')}>
+                            <span>📜</span> History
+                        </button>
+                        <button className="header-pill-btn" onClick={() => navigate('/dashboard')}>
+                            <span>📊</span> Stats
+                        </button>
                     </>
                 }
             />

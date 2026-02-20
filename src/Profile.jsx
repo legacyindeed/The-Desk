@@ -67,54 +67,56 @@ const Profile = () => {
         : user.email?.substring(0, 2).toUpperCase() || 'TD';
 
     return (
-        <div className="profile-container animate-up">
+        <div className="profile-page">
             <Header title="Your Profile" showBack={true} />
-            <header className="profile-header">
 
-                <div className="profile-avatar-placeholder">
-                    {initials}
-                </div>
-                <h1 className="profile-name">{user.displayName || 'Seeker'}</h1>
-                <p className="profile-email">{user.email}</p>
-                <div style={{ marginTop: '0.5rem' }}>
-                    <span className="hero-badge" style={{ background: '#eef2ff', color: '#4f46e5', borderColor: '#e0e7ff' }}>Free Member</span>
-                </div>
-            </header>
+            <div className="profile-container animate-up">
+                <header className="profile-header">
+                    <div className="profile-avatar-placeholder">
+                        {initials}
+                    </div>
+                    <h1 className="profile-name">{user.displayName || 'Seeker'}</h1>
+                    <p className="profile-email">{user.email}</p>
+                    <div style={{ marginTop: '0.5rem' }}>
+                        <span className="hero-badge" style={{ background: '#eef2ff', color: '#4f46e5', borderColor: '#e0e7ff' }}>Free Member</span>
+                    </div>
+                </header>
 
-            <div className="account-section glass">
-                <h3 className="section-title">📊 Lifetime Achievements</h3>
-                <div className="stats-overview">
-                    <div className="profile-stat-card">
-                        <span className="stat-value">{stats.readTotal}</span>
-                        <span className="stat-label">Pages Read</span>
-                    </div>
-                    <div className="profile-stat-card">
-                        <span className="stat-value">{stats.writeTotal.toLocaleString()}</span>
-                        <span className="stat-label">Words Written</span>
-                    </div>
-                    <div className="profile-stat-card">
-                        <span className="stat-value">{stats.totalEntries}</span>
-                        <span className="stat-label">Total Sessions</span>
-                    </div>
-                    <div className="profile-stat-card">
-                        <span className="stat-value">{stats.streak}</span>
-                        <span className="stat-label">Day Streak</span>
+                <div className="account-section glass">
+                    <h3 className="section-title">📊 Lifetime Achievements</h3>
+                    <div className="stats-overview">
+                        <div className="profile-stat-card">
+                            <span className="stat-value">{stats.readTotal}</span>
+                            <span className="stat-label">Pages Read</span>
+                        </div>
+                        <div className="profile-stat-card">
+                            <span className="stat-value">{stats.writeTotal.toLocaleString()}</span>
+                            <span className="stat-label">Words Written</span>
+                        </div>
+                        <div className="profile-stat-card">
+                            <span className="stat-value">{stats.totalEntries}</span>
+                            <span className="stat-label">Total Sessions</span>
+                        </div>
+                        <div className="profile-stat-card">
+                            <span className="stat-value">{stats.streak}</span>
+                            <span className="stat-label">Day Streak</span>
+                        </div>
                     </div>
                 </div>
+
+                <div className="profile-actions">
+                    <button className="btn-primary-fancy" onClick={() => navigate('/settings')}>
+                        ⚙️ Account Settings
+                    </button>
+                    <button className="btn-logout" onClick={handleLogout}>
+                        Start New Session (Log Out)
+                    </button>
+                </div>
+
+                <p style={{ textAlign: 'center', marginTop: '3rem', color: '#94a3b8', fontSize: '0.8rem' }}>
+                    The Desk v1.0.2 • Built for the focused mind.
+                </p>
             </div>
-
-            <div className="profile-actions">
-                <button className="btn-primary-fancy" onClick={() => navigate('/settings')}>
-                    ⚙️ Account Settings
-                </button>
-                <button className="btn-logout" onClick={handleLogout}>
-                    Start New Session (Log Out)
-                </button>
-            </div>
-
-            <p style={{ textAlign: 'center', marginTop: '3rem', color: '#94a3b8', fontSize: '0.8rem' }}>
-                The Desk v1.0.2 • Built for the focused mind.
-            </p>
         </div>
     );
 };

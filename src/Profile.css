@@ -1,6 +1,12 @@
+.profile-page {
+    min-height: 100vh;
+    position: relative;
+    padding-top: 80px;
+}
+
 .profile-container {
     max-width: 800px;
-    margin: 4rem auto;
+    margin: 2rem auto;
     padding: 0 1.5rem;
 }
 
