@@ -7,16 +7,15 @@
     border-radius: 32px;
     padding: 2.5rem;
     margin-bottom: 3rem;
-    position: relative;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
-    overflow: hidden;
 }
 
+/* Header */
 .heatmap-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
     flex-wrap: wrap;
     gap: 1rem;
 }
@@ -29,10 +28,19 @@
     margin: 0;
 }
 
+.heatmap-year {
+    font-weight: 400;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    margin-left: 0.5rem;
+}
+
+/* Legend */
 .heatmap-legend {
     display: flex;
     align-items: center;
     gap: 1.25rem;
+    flex-wrap: wrap;
 }
 
 .legend-item {
@@ -67,96 +75,93 @@
     background: #8b5cf6;
 }
 
-/* Scroll container so it's horizontally scrollable on mobile */
-.heatmap-scroll-container {
+/* Table wrapper */
+.heatmap-table-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     overflow-x: auto;
-    padding-bottom: 0.5rem;
 }
 
-/* Month row */
-.heatmap-month-row {
+/* Month header row */
+.heatmap-month-header {
     display: grid;
-    gap: 2px;
-    margin-bottom: 4px;
-    min-width: max-content;
+    grid-template-columns: 44px repeat(12, 1fr);
+    gap: 6px;
+    align-items: center;
 }
 
-.month-label {
+.week-label-spacer {
+    /* empty space above the week labels */
+}
+
+.month-col-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    text-align: center;
+}
+
+/* Each week row */
+.heatmap-week-row {
+    display: grid;
+    grid-template-columns: 44px repeat(12, 1fr);
+    gap: 6px;
+    align-items: center;
+}
+
+.week-label {
     font-size: 0.7rem;
     font-weight: 700;
-    color: #94a3b8;
+    color: #cbd5e1;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-}
-
-/* Main grid - columns of 7 rows (Mon-Sun) */
-.heatmap-grid {
-    display: grid;
-    grid-auto-rows: 14px;
-    grid-auto-flow: column;
-    gap: 2px;
-    min-width: max-content;
+    letter-spacing: 0.04em;
+    text-align: right;
+    padding-right: 6px;
 }
 
 /* Individual cells */
 .heatmap-cell {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.heatmap-cell:hover {
-    transform: scale(1.4);
-    opacity: 0.85;
-}
-
-.cell-pad {
-    background: transparent;
+    aspect-ratio: 1;
+    border-radius: 6px;
     cursor: default;
-    pointer-events: none;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    min-height: 20px;
+}
+
+.heatmap-cell:not(.cell-empty):hover {
+    transform: scale(1.15);
+    filter: brightness(1.1);
+    cursor: pointer;
 }
 
 .cell-empty {
-    background: #e2e8f0;
+    background: #f1f5f9;
 }
 
 .cell-reading {
     background: #3b82f6;
-    box-shadow: 0 0 6px rgba(59, 130, 246, 0.35);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .cell-writing {
     background: #f59e0b;
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
 }
 
 .cell-both {
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.35);
 }
 
-/* Tooltip */
-.heatmap-tooltip {
-    position: fixed;
-    background: #020617;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.5rem 0.9rem;
-    border-radius: 10px;
-    pointer-events: none;
-    z-index: 9999;
-    white-space: nowrap;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
+/* Mobile */
 @media (max-width: 768px) {
     .heatmap-wrapper {
         padding: 1.5rem;
         border-radius: 20px;
+        margin-bottom: 2rem;
     }
 
     .heatmap-header {
@@ -165,12 +170,30 @@
         margin-bottom: 1.25rem;
     }
 
-    .heatmap-legend {
-        gap: 0.75rem;
-        flex-wrap: wrap;
-    }
-
     .heatmap-header h3 {
         font-size: 1.2rem;
+    }
+
+    .heatmap-legend {
+        gap: 0.75rem;
+    }
+
+    .month-col-label {
+        font-size: 0.6rem;
+        letter-spacing: 0;
+    }
+
+    .week-label {
+        font-size: 0.6rem;
+    }
+
+    .heatmap-month-header,
+    .heatmap-week-row {
+        grid-template-columns: 32px repeat(12, 1fr);
+        gap: 4px;
+    }
+
+    .heatmap-table-wrapper {
+        gap: 4px;
     }
 }
