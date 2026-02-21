@@ -61,6 +61,9 @@ const HomePage = () => {
                         <button className="header-pill-btn" onClick={() => navigate('/analytics')}>
                             <span>📜</span> History
                         </button>
+                        <button className="header-pill-btn whisper-btn" onClick={() => navigate('/whisper')}>
+                            <span>🌬️</span> Whisper
+                        </button>
                         <button className="header-pill-btn" onClick={() => navigate('/dashboard')}>
                             <span>📊</span> Stats
                         </button>

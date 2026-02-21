@@ -1,0 +1,186 @@
+/* WhisperThread.css */
+
+.whisper-page {
+    min-height: 100vh;
+    padding-top: 80px;
+    background: #020617;
+    /* Deep midnight */
+    color: #f8fafc;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.whisper-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding-bottom: 6rem;
+}
+
+.whisper-hero {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.whisper-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.whisper-hero p {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+}
+
+/* The Orb Animation */
+.whisper-orb-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.whisper-orb {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    opacity: 0.6;
+    transition: all 1s ease;
+    animation: pulseOrb 4s infinite ease-in-out;
+}
+
+.whisper-orb.generating {
+    animation: spinOrb 2s infinite linear, pulseOrb 1s infinite ease-in-out;
+    background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 50%, transparent 70%);
+    filter: blur(30px);
+    opacity: 0.9;
+    transform: scale(1.2);
+}
+
+@keyframes pulseOrb {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes spinOrb {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.whisper-action-btn {
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    background: white;
+    color: #020617;
+    border-radius: 100px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+}
+
+.whisper-action-btn:hover:not(:disabled) {
+    transform: translateY(-4px);
+    box-shadow: 0 0 60px rgba(59, 130, 246, 0.5);
+}
+
+.whisper-action-btn:disabled {
+    background: #1e293b;
+    color: #64748b;
+    cursor: wait;
+}
+
+/* Whisper Cards */
+.whispers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.whisper-card {
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.whisper-card:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(59, 130, 246, 0.2);
+    transform: translateX(10px);
+}
+
+.whisper-icon {
+    font-size: 1.5rem;
+    width: 48px;
+    height: 48px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.whisper-content {
+    flex: 1;
+}
+
+.whisper-text {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    color: #f1f5f9;
+}
+
+.whisper-date {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.whisper-empty {
+    text-align: center;
+    padding: 4rem;
+    color: #475569;
+    font-style: italic;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .whisper-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .whisper-card {
+        padding: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+}

@@ -12,6 +12,7 @@ import DashboardPage from './DashboardPage';
 import Auth from './Auth';
 import Entrance from './Entrance';
 import Profile from './Profile';
+import WhisperThread from './WhisperThread';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/track/read" element={<ReadingSanctuary />} />
         <Route path="/track/write" element={<WritingStudio />} />
         <Route path="/analytics" element={<Analytics />} />
+        <Route path="/whisper" element={<WhisperThread />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
