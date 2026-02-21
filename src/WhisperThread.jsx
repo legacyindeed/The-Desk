@@ -1,3 +1,9 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from './Header';
+import { auth, db } from './firebase';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import './WhisperThread.css';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const WhisperThread = () => {
@@ -122,7 +128,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Substance Extraction" showBack={true} />
+            <Header title="Deep Substance Extraction" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
