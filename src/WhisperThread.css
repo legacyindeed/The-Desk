@@ -1,16 +1,55 @@
 /* WhisperThread.css */
 
-.whisper-page {
+.whisper-page.shadow-theme {
     min-height: 100vh;
     padding-top: 80px;
     background: #020617;
-    /* Deep midnight */
     color: #f8fafc;
     position: relative;
     overflow-x: hidden;
 }
 
+/* Background Shadow Effect */
+.shadow-background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.1;
+    overflow: hidden;
+}
+
+.moving-shadow-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-size: 8rem;
+    font-weight: 900;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: white;
+    white-space: nowrap;
+    filter: blur(40px);
+    animation: floatingText 20s infinite linear;
+}
+
+@keyframes floatingText {
+    0% {
+        transform: translate(-45%, -55%) rotate(-15deg);
+    }
+
+    50% {
+        transform: translate(-55%, -45%) rotate(-10deg);
+    }
+
+    100% {
+        transform: translate(-45%, -55%) rotate(-15deg);
+    }
+}
+
 .whisper-container {
+    position: relative;
+    z-index: 10;
     max-width: 800px;
     margin: 4rem auto;
     padding-bottom: 6rem;
@@ -28,145 +67,165 @@
 }
 
 .whisper-hero p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: #94a3b8;
     max-width: 500px;
-    margin: 0 auto 2.5rem;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
 }
 
-/* The Orb Animation */
-.whisper-orb-container {
+/* Shadow Orb Animation */
+.orb-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
-.whisper-orb {
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+.shadow-orb {
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     border-radius: 50%;
-    filter: blur(20px);
-    opacity: 0.6;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
     transition: all 1s ease;
-    animation: pulseOrb 4s infinite ease-in-out;
 }
 
-.whisper-orb.generating {
-    animation: spinOrb 2s infinite linear, pulseOrb 1s infinite ease-in-out;
-    background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 50%, transparent 70%);
-    filter: blur(30px);
-    opacity: 0.9;
-    transform: scale(1.2);
+.inner-shadow {
+    width: 60px;
+    height: 60px;
+    background: #000;
+    border-radius: 50%;
+    filter: blur(10px);
+    opacity: 0.8;
+    animation: orbitShadow 4s infinite ease-in-out;
 }
 
-@keyframes pulseOrb {
+.shadow-orb.active {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+}
+
+.shadow-orb.active .inner-shadow {
+    animation: orbitShadowActive 1s infinite linear;
+    filter: blur(5px);
+    width: 80px;
+    height: 80px;
+}
+
+@keyframes orbitShadow {
 
     0%,
     100% {
-        transform: scale(1);
-        opacity: 0.6;
+        transform: translate(0, 0) scale(1);
+    }
+
+    25% {
+        transform: translate(20px, -20px) scale(1.1);
     }
 
     50% {
-        transform: scale(1.1);
-        opacity: 0.8;
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+
+    75% {
+        transform: translate(-20px, -20px) scale(1.1);
     }
 }
 
-@keyframes spinOrb {
+@keyframes orbitShadowActive {
     from {
-        transform: rotate(0deg);
+        transform: rotate(0deg) translateX(40px);
     }
 
     to {
-        transform: rotate(360deg);
+        transform: rotate(360deg) translateX(40px);
     }
 }
 
-.whisper-action-btn {
-    padding: 1.2rem 3rem;
-    font-size: 1.2rem;
-    background: white;
+/* Action Button */
+.btn-shadow-action {
+    padding: 1.25rem 3.5rem;
+    font-size: 1.15rem;
+    background: #ffffff;
     color: #020617;
     border-radius: 100px;
-    font-weight: 700;
+    font-weight: 800;
     border: none;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.whisper-action-btn:hover:not(:disabled) {
-    transform: translateY(-4px);
-    box-shadow: 0 0 60px rgba(59, 130, 246, 0.5);
+.btn-shadow-action:hover:not(:disabled) {
+    transform: translateY(-5px);
+    background: #f8fafc;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-.whisper-action-btn:disabled {
+.btn-shadow-action:disabled {
     background: #1e293b;
     color: #64748b;
     cursor: wait;
 }
 
-/* Whisper Cards */
-.whispers-list {
+/* Shadow Cards */
+.whisper-card.shadow-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 28px;
+    padding: 2.5rem;
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    align-items: flex-start;
+    transition: all 0.5s ease;
+    margin-bottom: 2rem;
 }
 
-.whisper-card {
-    background: rgba(30, 41, 59, 0.5);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    padding: 2rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    transition: all 0.3s ease;
+.whisper-card.shadow-card:hover {
+    background: rgba(15, 23, 42, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: perspective(1000px) rotateX(2deg) translateY(-5px);
 }
 
-.whisper-card:hover {
-    background: rgba(30, 41, 59, 0.8);
-    border-color: rgba(59, 130, 246, 0.2);
-    transform: translateX(10px);
-}
-
-.whisper-icon {
+.whisper-avatar {
     font-size: 1.5rem;
-    width: 48px;
-    height: 48px;
-    background: rgba(59, 130, 246, 0.1);
-    border-radius: 12px;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-}
-
-.whisper-content {
-    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .whisper-text {
-    font-size: 1.15rem;
+    font-family: 'Lora', serif;
+    font-size: 1.4rem;
     line-height: 1.7;
-    margin-bottom: 0.5rem;
-    color: #f1f5f9;
+    font-style: italic;
+    color: #e2e8f0;
+    margin-bottom: 1rem;
 }
 
-.whisper-date {
+.whisper-meta {
     font-size: 0.85rem;
     color: #64748b;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
 }
 
-.whisper-empty {
+.shadow-empty {
     text-align: center;
-    padding: 4rem;
+    padding: 5rem;
     color: #475569;
     font-style: italic;
 }
@@ -177,10 +236,13 @@
         font-size: 2.5rem;
     }
 
-    .whisper-card {
+    .whisper-card.shadow-card {
         padding: 1.5rem;
         flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
+        gap: 1rem;
+    }
+
+    .whisper-text {
+        font-size: 1.2rem;
     }
 }

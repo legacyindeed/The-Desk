@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { auth, db } from './firebase';
@@ -11,6 +11,8 @@ const WhisperThread = () => {
     const [whispers, setWhispers] = useState([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [user, setUser] = useState(null);
+    const [shadowText, setShadowText] = useState('');
+    const scrollRef = useRef(null);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
@@ -25,95 +27,121 @@ const WhisperThread = () => {
     }, [navigate]);
 
     const fetchEntries = async (uid) => {
-        const q = query(collection(db, 'users', uid, 'entries'), orderBy('timestamp', 'desc'), limit(20));
+        const q = query(collection(db, 'users', uid, 'entries'), orderBy('timestamp', 'desc'), limit(50));
         const snapshot = await getDocs(q);
         const data = snapshot.docs.map(d => d.data());
         setEntries(data);
+
+        // Prepare some random "shadow" text from past entries
+        if (data.length > 0) {
+            const randomEntry = data[Math.floor(Math.random() * data.length)];
+            const text = randomEntry.type === 'writing' ?
+                extractTextFromHtml(randomEntry.content) :
+                randomEntry.reflections || randomEntry.title;
+            setShadowText(text.slice(0, 300));
+        }
+    };
+
+    const extractTextFromHtml = (html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        return doc.body.textContent || "";
     };
 
     const generateWhisper = () => {
         if (entries.length < 2) {
-            alert("The Whisper needs at least two entries to find a thread. Keep reading and writing!");
+            alert("The Shadow needs more of your history to find a dialogue. Keep reading and writing!");
             return;
         }
 
         setIsGenerating(true);
 
-        // Simulate AI thinking
+        // Simulate AI thinking and shadow movement
         setTimeout(() => {
-            const readingEntries = entries.filter(e => e.type === 'reading');
-            const writingEntries = entries.filter(e => e.type === 'writing');
+            const recent = entries.slice(0, 5);
+            const past = entries.slice(10, 30);
 
             let newWhisper = "";
 
-            if (readingEntries.length > 0 && writingEntries.length > 0) {
-                const read = readingEntries[Math.floor(Math.random() * readingEntries.length)];
-                const write = writingEntries[Math.floor(Math.random() * writingEntries.length)];
+            if (past.length > 0) {
+                const pastEntry = past[Math.floor(Math.random() * past.length)];
+                const recentEntry = recent[Math.floor(Math.random() * recent.length)];
 
-                const connections = [
-                    `The intellectual rigor you found in "${read.title}" is manifesting in the clarity of your writing about "${write.title}".`,
-                    `There is a subtle bridge between the themes of "${read.title}" and the emotional frequency of your session "${write.title}".`,
-                    `Your subconscious is echoing the wisdom of "${read.author}" within your recent creative reflections.`,
-                    `Notice how the quiet focus of your reading session for "${read.title}" fueled the word count of "${write.wordCount}" in your next session.`
+                const dialogues = [
+                    `I remember when I was obsessed with "${pastEntry.title}" a while ago. Seeing me work on "${recentEntry.title}" now, I can see how far my perspective has shifted.`,
+                    `The questions I asked back during "${pastEntry.title}" are finally being answered in "${recentEntry.title}". I've grown more than I realized.`,
+                    `I was much more rigid when I wrote/read "${pastEntry.title}". In "${recentEntry.title}", I sense a new kind of creative freedom.`,
+                    `It's strange... the themes from my time with "${pastEntry.title}" are still echoing in "${recentEntry.title}". Some parts of me never change.`,
+                    `I was searching for something during "${pastEntry.title}". I think I found a piece of it today in "${recentEntry.title}".`
                 ];
-                newWhisper = connections[Math.floor(Math.random() * connections.length)];
-            } else if (writingEntries.length >= 2) {
-                const e1 = writingEntries[0];
-                const e2 = writingEntries[1];
-                newWhisper = `A pattern is emerging between "${e1.title}" and "${e2.title}". Your voice is becoming more distinct.`;
-            } else if (readingEntries.length >= 2) {
-                const e1 = readingEntries[0];
-                const e2 = readingEntries[1];
-                newWhisper = `The dialogue between "${e1.title}" and "${e2.title}" in your mind is creating a new field of knowledge.`;
+                newWhisper = dialogues[Math.floor(Math.random() * dialogues.length)];
+            } else {
+                // Fallback for newer users
+                const e1 = entries[0];
+                const e2 = entries[1];
+                newWhisper = `I see a thread connecting "${e1.title}" to "${e2.title}". My mind is building a bridge between these two worlds.`;
             }
 
             const whisperObj = {
                 id: Date.now(),
                 text: newWhisper,
                 date: new Date().toLocaleDateString(),
-                type: 'connection'
+                type: 'shadow'
             };
 
             setWhispers([whisperObj, ...whispers]);
             setIsGenerating(false);
-        }, 2500);
+
+            // Randomize shadow text for next time
+            const nextShadowEntry = entries[Math.floor(Math.random() * entries.length)];
+            const nextText = nextShadowEntry.type === 'writing' ?
+                extractTextFromHtml(nextShadowEntry.content) :
+                nextShadowEntry.reflections || nextShadowEntry.title;
+            setShadowText(nextText.slice(0, 300));
+
+        }, 3000);
     };
 
     return (
-        <div className="whisper-page">
-            <Header title="The Whisper Thread" showBack={true} />
+        <div className="whisper-page shadow-theme">
+            <Header title="The Shadow Dialogue" showBack={true} />
+
+            <div className="shadow-background">
+                <div className="moving-shadow-text">{shadowText}</div>
+            </div>
 
             <main className="whisper-container container animate-up">
                 <div className="whisper-hero">
-                    <div className="whisper-orb-container">
-                        <div className={`whisper-orb ${isGenerating ? 'generating' : ''}`}></div>
+                    <div className="orb-wrapper">
+                        <div className={`shadow-orb ${isGenerating ? 'active' : ''}`}>
+                            <div className="inner-shadow"></div>
+                        </div>
                     </div>
-                    <h1>Listen to the <span className="gradient-text">Silence</span></h1>
-                    <p>The AI Intellectual Partner that finds the hidden threads in your journey.</p>
+                    <h1>Converse with <span className="gradient-text">Past Self</span></h1>
+                    <p>Listen to the echoes of your own evolution as a reader and writer.</p>
 
                     <button
-                        className="btn-main-premium whisper-action-btn"
+                        className="btn-shadow-action"
                         onClick={generateWhisper}
                         disabled={isGenerating}
                     >
-                        {isGenerating ? "Listening..." : "Seek Connection"}
+                        {isGenerating ? "Summoning Shadow..." : "Invoke Dialogue"}
                     </button>
                 </div>
 
-                <div className="whispers-list">
+                <div className="whispers-list" ref={scrollRef}>
                     {whispers.map((w, index) => (
-                        <div key={w.id} className="whisper-card animate-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                            <div className="whisper-icon">✨</div>
+                        <div key={w.id} className="whisper-card shadow-card animate-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                            <div className="whisper-avatar">👤</div>
                             <div className="whisper-content">
-                                <p className="whisper-text">{w.text}</p>
-                                <span className="whisper-date">{w.date} • Intellectual Connection</span>
+                                <p className="whisper-text">"{w.text}"</p>
+                                <span className="whisper-meta">{w.date} • Your Shadow</span>
                             </div>
                         </div>
                     ))}
 
                     {whispers.length === 0 && !isGenerating && (
-                        <div className="whisper-empty">
-                            <p>No whispers yet. Summon a connection to begin.</p>
+                        <div className="whisper-empty shadow-empty">
+                            <p>No dialogue has been summoned. The shadow is waiting.</p>
                         </div>
                     )}
                 </div>
