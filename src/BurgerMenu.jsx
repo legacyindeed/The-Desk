@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from './firebase';
+import { signOut } from 'firebase/auth';
 import './BurgerMenu.css';
 
 const BurgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            setIsOpen(false);
+            navigate('/');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     return (
         <div className="burger-menu-container">
@@ -24,6 +36,8 @@ const BurgerMenu = () => {
                         <button onClick={() => { navigate('/dashboard'); setIsOpen(false); }}>Dashboard</button>
                         <button onClick={() => { navigate('/profile'); setIsOpen(false); }}>Profile</button>
                         <button onClick={() => { navigate('/settings'); setIsOpen(false); }}>Settings</button>
+                        <div className="burger-divider" />
+                        <button className="logout-btn" onClick={handleLogout}>Sign Out</button>
                     </div>
                 </>
             )}

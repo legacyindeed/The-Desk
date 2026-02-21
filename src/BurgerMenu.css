@@ -99,3 +99,26 @@
     background: transparent;
     z-index: 1999;
 }
+
+/* Divider separating nav from logout */
+.burger-divider {
+    height: 1px;
+    background: rgba(15, 23, 42, 0.07);
+    margin: 0.5rem 0;
+    border-radius: 10px;
+}
+
+/* Logout button — distinct destructive style */
+.burger-dropdown .logout-btn {
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.04);
+    border-color: transparent;
+}
+
+.burger-dropdown .logout-btn:hover {
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    padding-left: 1.5rem;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
