@@ -67,7 +67,7 @@ const WhisperThread = () => {
         let bridgeMessage = "";
         if (uniqueCommon.length > 0) {
             const topKeyword = uniqueCommon[Math.floor(Math.random() * uniqueCommon.length)];
-            bridgeMessage = `The seed of "${topKeyword}" was planted in my earlier sessions. Watching it bloom in my recent work on "${recent[0].title}" shows how my ideas are maturing.`;
+            bridgeMessage = `I noticed I'm still writing/reading about "${topKeyword}" in my latest work on "${recent[0].title}," just like I was in the past. It's a clear theme in my life.`;
         }
 
         // Compare moods if available
@@ -76,7 +76,7 @@ const WhisperThread = () => {
 
         if (recentMoods.length > 0 && pastMoods.length > 0) {
             if (recentMoods[0] !== pastMoods[0]) {
-                bridgeMessage = bridgeMessage || `I was feeling "${pastMoods[0]}" when I explored "${past[0].title}," but I've transitioned into a "${recentMoods[0]}" energy now. My emotional alignment has completely shifted.`;
+                bridgeMessage = bridgeMessage || `I used to feel more "${pastMoods[0]}" when I was doing "${past[0].title}," but I seem more "${recentMoods[0]}" now. My vibe has definitely changed.`;
             }
         }
 
@@ -85,15 +85,15 @@ const WhisperThread = () => {
         const writeCount = entries.filter(e => e.type === 'writing').length;
 
         const ratioText = (readCount > writeCount * 2 && writeCount > 0) ?
-            "I've been consuming so much more than I've been creating lately. My mind is full of others' voices; perhaps it's time to speak my own Truth more often." :
+            "I've been reading a lot more than I've been writing lately. It might be time to start putting my own thoughts down on paper." :
             (writeCount > readCount * 2 && readCount > 0) ?
-                "I'm pouring out so much creative energy. I must remember to return to the Sanctuary and refill my well with new perspectives soon." :
-                "There is a beautiful symmetry between my reading and my writing right now. My input and output are in harmony.";
+                "I've been writing a lot lately. I should probably take a break and read something new to get some fresh ideas." :
+                "I'm doing a great job of balancing my reading and writing right now. Keep it up.";
 
         const genericDialogues = [
-            `The questions I asked back during "${past[0].title}" are finally being answered in "${recent[0].title}". I've grown more than I realized.`,
-            `It's strange... the themes from my time with "${past[0].title}" are still echoing in "${recent[0].title}". Some parts of me never change.`,
-            `I was searching for something during "${past[0].title}". I think I found a piece of it today in "${recent[0].title}".`
+            `My recent work on "${recent[0].title}" really reminds me of when I was focused on "${past[0].title}" earlier.`,
+            `I can see a connection between what I'm doing now in "${recent[0].title}" and my older entry about "${past[0].title}."`,
+            `It's interesting to see how my thoughts in "${recent[0].title}" are similar to the ones I had during "${past[0].title}."`
         ];
 
         // Preference: Keyword Bridge > Emotional Shift > Ratio Analysis > Generic
