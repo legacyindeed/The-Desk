@@ -186,67 +186,97 @@
     gap: 0.75rem;
 }
 
+/* Mood Selector */
+.mood-selector {
+    display: flex;
+    background: rgba(15, 23, 42, 0.05);
+    padding: 0.4rem;
+    border-radius: 100px;
+    gap: 0.25rem;
+}
+
+.mood-btn {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    background: transparent;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mood-btn.active {
+    background: white;
+    color: #020617;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.mood-btn .icon {
+    font-size: 1rem;
+}
+
+/* Atmospheric Transitions */
+body {
+    transition: background-color 1.5s ease;
+}
+
+/* Sanctuary Mode Overrides */
+body.mood-sanctuary {
+    background-color: #fffaf0 !important;
+}
+
+body.mood-sanctuary .app-sanctuary-overlay {
+    background: rgba(255, 250, 240, 0.94) !important;
+}
+
+body.mood-sanctuary .welcome-text h1,
+body.mood-sanctuary .welcome-text p,
+body.mood-sanctuary .stat-card .value,
+body.mood-sanctuary .chart-container h3 {
+    color: #4a3728 !important;
+}
+
+body.mood-sanctuary .stat-card,
+body.mood-sanctuary .chart-container,
+body.mood-sanctuary .activity-item {
+    background: rgba(255, 246, 230, 0.8);
+    border-color: rgba(139, 92, 246, 0.05);
+}
+
+body.mood-sanctuary .mood-selector {
+    background: rgba(139, 92, 246, 0.05);
+}
+
+/* Lexical Velocity Prestige Style */
+.prestige-stat .value {
+    background: linear-gradient(135deg, #020617 0%, #334155 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+body.mood-sanctuary .prestige-stat .value {
+    background: linear-gradient(135deg, #4a3728 0%, #8b5e3c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 @media (max-width: 768px) {
-    .dashboard-view {
-        padding: 1.5rem;
-        /* Ensure padding on mobile */
-    }
-
-    .welcome-text h1 {
-        font-size: 2.5rem;
-    }
-
-    /* Stack Stats */
-    .stats-strip {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .stat-card {
-        padding: 2rem;
-        min-height: auto;
-    }
-
-    .stat-card .value {
-        font-size: 2.5rem;
-    }
-
-    /* Stack Charts */
-    .charts-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .chart-container {
-        padding: 1.5rem;
-        border-radius: 24px;
-    }
-
-    .chart-container h3 {
-        font-size: 1.25rem;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Activity List */
-    .activity-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1.5rem;
-    }
-
-    .type-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
-    }
-
-    .item-info {
-        width: 100%;
-    }
-
     .item-stat {
         align-self: flex-end;
         font-size: 1rem;
+    }
+
+    .mood-selector {
+        margin-bottom: 2rem;
+        width: 100%;
+        justify-content: center;
     }
 }

@@ -11,9 +11,18 @@ import { auth } from './firebase';
 const Dashboard = ({ entries }) => {
     const navigate = useNavigate();
     const [timeframe, setTimeframe] = React.useState('Weekly');
+    const [mood, setMood] = React.useState('studio');
 
     const user = auth.currentUser || JSON.parse(localStorage.getItem('thedesk_user') || '{}');
     const firstName = user.displayName ? user.displayName.split(' ')[0] : (user.name ? user.name.split(' ')[0] : 'Writer');
+
+    // Effect to apply atmospheric mode to body
+    React.useEffect(() => {
+        document.body.classList.add(`mood-${mood}`);
+        return () => {
+            document.body.classList.remove('mood-studio', 'mood-sanctuary');
+        };
+    }, [mood]);
 
     // Process data for charts
     const chartData = useMemo(() => {
@@ -37,13 +46,28 @@ const Dashboard = ({ entries }) => {
     const stats = useMemo(() => {
         const readTotal = entries.filter(e => e.type === 'reading').reduce((acc, curr) => acc + Number(curr.pages || 0), 0);
         const writeTotal = entries.filter(e => e.type === 'writing').reduce((acc, curr) => acc + Number(curr.wordCount || 0), 0);
+        const totalThoughts = entries.length;
         const streak = entries.length > 0 ? 12 : 0; // Mock streak for visual
-        return { readTotal, writeTotal, streak };
+        return { readTotal, writeTotal, streak, totalThoughts };
     }, [entries]);
 
     return (
-        <div className="dashboard-view animate-up">
+        <div className={`dashboard-view animate-up mood-${mood}`}>
             <header className="dashboard-header">
+                <div className="mood-selector glass">
+                    <button
+                        className={`mood-btn ${mood === 'studio' ? 'active' : ''}`}
+                        onClick={() => setMood('studio')}
+                    >
+                        <span className="icon">☀️</span> Studio
+                    </button>
+                    <button
+                        className={`mood-btn ${mood === 'sanctuary' ? 'active' : ''}`}
+                        onClick={() => setMood('sanctuary')}
+                    >
+                        <span className="icon">🌙</span> Sanctuary
+                    </button>
+                </div>
 
                 <div className="timeframe-selector">
                     {['Weekly', 'Monthly', 'Annual'].map(t => (
@@ -59,17 +83,17 @@ const Dashboard = ({ entries }) => {
             </header>
 
             <div className="stats-strip">
-                <div className="stat-card">
-                    <span className="label">Total Pages Read</span>
-                    <span className="value">{stats.readTotal} <span className="unit">Pages</span></span>
+                <div className="stat-card prestige-stat">
+                    <span className="label">Lexical Velocity</span>
+                    <span className="value">{stats.writeTotal.toLocaleString()} <span className="unit">Words Woven</span></span>
                 </div>
                 <div className="stat-card">
-                    <span className="label">Words Written</span>
-                    <span className="value">{stats.writeTotal} <span className="unit">Words</span></span>
+                    <span className="label">Knowledge Absorbed</span>
+                    <span className="value">{stats.readTotal.toLocaleString()} <span className="unit">Pages</span></span>
                 </div>
                 <div className="stat-card">
-                    <span className="label">Current Streak</span>
-                    <span className="value">{stats.streak} <span className="unit">Days</span></span>
+                    <span className="label">Thoughts Cataloged</span>
+                    <span className="value">{stats.totalThoughts} <span className="unit">Entries</span></span>
                 </div>
             </div>
 
