@@ -98,6 +98,19 @@
     }
 }
 
+/* Give the editor canvas a real minimum height */
+.quill-wrapper .ql-editor {
+    min-height: 420px;
+    padding: 0;
+}
+
+/* Push the Save button well below the writing area */
+.editor-footer-action {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.05);
+}
+
 .quill-wrapper .ql-toolbar.ql-snow {
     border: none;
     border-bottom: 1px solid rgba(15, 23, 42, 0.05);
