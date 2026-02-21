@@ -25,8 +25,10 @@ const Header = ({ title, showBack = false, backPath = '/home', showLogo = true, 
                     ) : (
                         showLogo && (
                             <div className="header-brand" onClick={() => navigate('/home')}>
-                                <span className="brand-icon">✎</span>
-                                <span className="brand-text">The Desk</span>
+                                <div className="app-logo">
+                                    <span className="logo-icon">✎</span>
+                                    <span className="logo-text">the<span>desk</span></span>
+                                </div>
                             </div>
                         )
                     )}
@@ -38,8 +40,10 @@ const Header = ({ title, showBack = false, backPath = '/home', showLogo = true, 
                     ) : (
                         showBack && showLogo && (
                             <div className="header-brand mini" onClick={() => navigate('/home')}>
-                                <span className="brand-icon">✎</span>
-                                <span className="brand-text">The Desk</span>
+                                <div className="app-logo">
+                                    <span className="logo-icon">✎</span>
+                                    <span className="logo-text">the<span>desk</span></span>
+                                </div>
                             </div>
                         )
                     )}

@@ -83,6 +83,13 @@ const Auth = () => {
                 ← Return to Silence
             </button>
 
+            <div className="auth-logo-container animate-down" onClick={() => navigate('/')}>
+                <div className="app-logo logo-lg logo-light">
+                    <span className="logo-icon">✎</span>
+                    <span className="logo-text">the<span>desk</span></span>
+                </div>
+            </div>
+
             <div className="auth-card animate-up">
                 <h2>{isLogin ? 'Welcome Back.' : 'Join the Sanctuary.'}</h2>
                 <p className="auth-subtitle">

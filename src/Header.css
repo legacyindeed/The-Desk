@@ -46,39 +46,6 @@
     gap: 1.5rem;
 }
 
-/* Brand Styles */
-.header-brand {
-    font-family: var(--font-serif);
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: var(--text-main);
-    letter-spacing: -0.03em;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
-}
-
-.header-brand:hover {
-    transform: scale(1.02);
-}
-
-.header-brand .brand-icon {
-    font-size: 1.8rem;
-    color: var(--accent-blue);
-}
-
-.header-brand.mini {
-    font-size: 1.2rem;
-    opacity: 0.8;
-}
-
-.header-brand.mini .brand-icon {
-    font-size: 1.4rem;
-}
-
 /* Title Styles */
 .header-title {
     font-family: var(--font-serif);

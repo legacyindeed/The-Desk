@@ -21,9 +21,11 @@ const LandingPage = () => {
 
             <div className={`landing-content ${isVisible ? 'fade-in' : ''}`}>
                 <nav className="landing-nav">
-                    <div className="landing-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                        <span className="logo-icon-main">✎</span>
-                        <span className="logo-text-fancy">The Desk</span>
+                    <div className="landing-logo" onClick={() => navigate('/')}>
+                        <div className="app-logo">
+                            <span className="logo-icon">✎</span>
+                            <span className="logo-text">the<span>desk</span></span>
+                        </div>
                     </div>
                     <div className="nav-secondary">
                         <span onClick={() => navigate('/login')} style={{ cursor: 'pointer' }}>Log In</span>

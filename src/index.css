@@ -141,6 +141,64 @@ button {
   border-radius: 24px;
 }
 
+/* Standardized Logo System */
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  text-decoration: none;
+}
+
+.app-logo:hover {
+  transform: translateY(-2px);
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #3b82f6, #f59e0b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.15));
+}
+
+.logo-text {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.04em;
+  color: #020617;
+  text-transform: lowercase;
+}
+
+.logo-text span {
+  font-weight: 300;
+  color: #64748b;
+}
+
+/* Large Logo Variant (for Auth/Landing Hero) */
+.logo-lg .logo-icon {
+  font-size: 3rem;
+}
+
+.logo-lg .logo-text {
+  font-size: 2.5rem;
+}
+
+.logo-light .logo-text {
+  color: #ffffff;
+}
+
+.logo-light .logo-text span {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 /* Animations */
 @keyframes fadeInDown {
   from {
