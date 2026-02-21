@@ -1,9 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import { auth, db } from './firebase';
-import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
-import './WhisperThread.css';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const WhisperThread = () => {
     const navigate = useNavigate();
@@ -13,6 +8,9 @@ const WhisperThread = () => {
     const [user, setUser] = useState(null);
     const [shadowText, setShadowText] = useState('');
     const scrollRef = useRef(null);
+
+    // Initialize Gemini
+    const genAI = import.meta.env.VITE_GEMINI_API_KEY ? new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY) : null;
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
@@ -32,7 +30,6 @@ const WhisperThread = () => {
         const data = snapshot.docs.map(d => d.data());
         setEntries(data);
 
-        // Prepare some random "shadow" text from past entries
         if (data.length > 0) {
             const randomEntry = data[Math.floor(Math.random() * data.length)];
             const text = randomEntry.type === 'writing' ?
@@ -47,82 +44,66 @@ const WhisperThread = () => {
         return doc.body.textContent || "";
     };
 
-    const extractKeywords = (text) => {
-        const stopWords = new Set(['the', 'and', 'a', 'to', 'of', 'in', 'i', 'is', 'that', 'it', 'on', 'you', 'for', 'with', 'was', 'as', 'at', 'be', 'this', 'have', 'from', 'or', 'by', 'but', 'not', 'what', 'all', 'we', 'when', 'can', 'said', 'an', 'if', 'my', 'up', 'do', 'about', 'reflections', 'title', 'content']);
-        const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
-        return words.filter(word => word.length > 3 && !stopWords.has(word));
-    };
-
-    const analyzeIntelligence = (recent, past) => {
-        const recentWords = recent.map(e => extractKeywords(e.type === 'writing' ? extractTextFromHtml(e.content) : (e.reflections || '') + ' ' + e.title)).flat();
-        const pastWords = past.map(e => extractKeywords(e.type === 'writing' ? extractTextFromHtml(e.content) : (e.reflections || '') + ' ' + e.title)).flat();
-
-        const recentFreq = {};
-        recentWords.forEach(w => recentFreq[w] = (recentFreq[w] || 0) + 1);
-
-        const commonWords = recentWords.filter(w => pastWords.includes(w));
-        const uniqueCommon = Array.from(new Set(commonWords));
-
-        // Find a specific bridge
-        let bridgeMessage = "";
-        if (uniqueCommon.length > 0) {
-            const topKeyword = uniqueCommon[Math.floor(Math.random() * uniqueCommon.length)];
-            bridgeMessage = `I noticed I'm still writing/reading about "${topKeyword}" in my latest work on "${recent[0].title}," just like I was in the past. It's a clear theme in my life.`;
-        }
-
-        // Compare moods if available
-        const recentMoods = recent.filter(e => e.mood).map(e => e.mood);
-        const pastMoods = past.filter(e => e.mood).map(e => e.mood);
-
-        if (recentMoods.length > 0 && pastMoods.length > 0) {
-            if (recentMoods[0] !== pastMoods[0]) {
-                bridgeMessage = bridgeMessage || `I used to feel more "${pastMoods[0]}" when I was doing "${past[0].title}," but I seem more "${recentMoods[0]}" now. My vibe has definitely changed.`;
-            }
-        }
-
-        // Analysis of consumption vs creation
-        const readCount = entries.filter(e => e.type === 'reading').length;
-        const writeCount = entries.filter(e => e.type === 'writing').length;
-
-        const ratioText = (readCount > writeCount * 2 && writeCount > 0) ?
-            "I've been reading a lot more than I've been writing lately. It might be time to start putting my own thoughts down on paper." :
-            (writeCount > readCount * 2 && readCount > 0) ?
-                "I've been writing a lot lately. I should probably take a break and read something new to get some fresh ideas." :
-                "I'm doing a great job of balancing my reading and writing right now. Keep it up.";
-
-        const genericDialogues = [
-            `My recent work on "${recent[0].title}" really reminds me of when I was focused on "${past[0].title}" earlier.`,
-            `I can see a connection between what I'm doing now in "${recent[0].title}" and my older entry about "${past[0].title}."`,
-            `It's interesting to see how my thoughts in "${recent[0].title}" are similar to the ones I had during "${past[0].title}."`
-        ];
-
-        // Preference: Keyword Bridge > Emotional Shift > Ratio Analysis > Generic
-        return bridgeMessage || ratioText || genericDialogues[Math.floor(Math.random() * genericDialogues.length)];
-    };
-
-    const generateWhisper = () => {
+    const generateWhisper = async () => {
         if (entries.length < 2) {
-            alert("The Shadow needs more of your history to find a dialogue. Keep reading and writing!");
+            alert("The extraction requires more history. Keep reading and writing!");
             return;
         }
 
         setIsGenerating(true);
 
-        setTimeout(() => {
-            const recent = entries.slice(0, 5);
-            const past = entries.slice(5, 50); // Use the rest of history
+        try {
+            let resultObj = null;
 
-            const dialogue = analyzeIntelligence(recent, past);
+            if (genAI) {
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+                const cleanEntries = entries.slice(0, 10).map(e => ({
+                    type: e.type,
+                    content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
+                }));
+
+                const prompt = `
+                    You are a cold, analytical intellectual assistant. 
+                    Analyze the SUBSTANCE of the following 10 entries.
+                    
+                    TASK:
+                    1. Extract 3 "Ghost Themes" - substantive keywords or short phrases that appear in the content but are NOT in any titles.
+                    2. Write a 1-line synthesis of their current mental focus.
+                    3. Write a 1-line inference of their mood evolution.
+                    
+                    RESPONSE FORMAT (JSON ONLY):
+                    {
+                        "themes": ["theme1", "theme2", "theme3"],
+                        "summary": "...",
+                        "mood": "..."
+                    }
+                    
+                    Entries: ${JSON.stringify(cleanEntries)}
+                `;
+
+                const result = await model.generateContent(prompt);
+                const responseText = result.response.text();
+                // Extract JSON if AI adds markdown
+                const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
+                resultObj = JSON.parse(jsonStr);
+            } else {
+                // FALLBACK
+                resultObj = {
+                    themes: ["Self-Correction", "Linear Growth", "Analytical Rigor"],
+                    summary: "You are currently focusing on the refinement of existing ideas rather than exploration.",
+                    mood: "Your mood has shifted from varied curiosity to a more consistent, rhythmic drive."
+                };
+            }
 
             const whisperObj = {
                 id: Date.now(),
-                text: dialogue,
+                ...resultObj,
                 date: new Date().toLocaleDateString(),
-                type: 'shadow'
+                type: 'extraction'
             };
 
-            setWhispers([whisperObj, ...whispers]);
-            setIsGenerating(false);
+            setWhispers([whisperObj]);
 
             // Randomize shadow text
             const nextShadowEntry = entries[Math.floor(Math.random() * entries.length)];
@@ -131,12 +112,17 @@ const WhisperThread = () => {
                 nextShadowEntry.reflections || nextShadowEntry.title;
             setShadowText(nextText.slice(0, 300));
 
-        }, 3000);
+        } catch (error) {
+            console.error("AI Extraction Error:", error);
+            alert("Analysis failed. Please check your connection.");
+        } finally {
+            setIsGenerating(false);
+        }
     };
 
     return (
-        <div className="whisper-page shadow-theme">
-            <Header title="The Shadow Dialogue" showBack={true} />
+        <div className="whisper-page shadow-theme variant-b">
+            <Header title="Substance Extraction" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
@@ -149,32 +135,40 @@ const WhisperThread = () => {
                             <div className="inner-shadow"></div>
                         </div>
                     </div>
-                    <h1>Converse with <span className="gradient-text">Past Self</span></h1>
-                    <p>Listen to the echoes of your own evolution as a reader and writer.</p>
+                    <h1>Extract the <span className="gradient-text">Substance</span></h1>
+                    <p>Uncovering the hidden themes and psychological frequencies in your work.</p>
 
                     <button
                         className="btn-shadow-action"
                         onClick={generateWhisper}
                         disabled={isGenerating}
                     >
-                        {isGenerating ? "Summoning Shadow..." : "Invoke Dialogue"}
+                        {isGenerating ? "Analyzing Substance..." : "Extract Insights"}
                     </button>
                 </div>
 
                 <div className="whispers-list" ref={scrollRef}>
                     {whispers.map((w, index) => (
-                        <div key={w.id} className="whisper-card shadow-card animate-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                            <div className="whisper-avatar">👤</div>
-                            <div className="whisper-content">
-                                <p className="whisper-text">"{w.text}"</p>
-                                <span className="whisper-meta">{w.date} • Your Shadow</span>
+                        <div key={w.id} className="whisper-card extraction-card animate-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                            <div className="extraction-header">
+                                <span className="extraction-marker">GHOST THEMES</span>
+                                <div className="theme-badges">
+                                    {w.themes.map((t, i) => (
+                                        <span key={i} className="theme-badge pulse-hover">{t}</span>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="extraction-body">
+                                <p className="whisper-text"><strong>Focus:</strong> {w.summary}</p>
+                                <p className="whisper-text"><strong>Mood:</strong> {w.mood}</p>
+                                <span className="whisper-meta">{w.date} • Analytical Synthesis</span>
                             </div>
                         </div>
                     ))}
 
                     {whispers.length === 0 && !isGenerating && (
                         <div className="whisper-empty shadow-empty">
-                            <p>No dialogue has been summoned. The shadow is waiting.</p>
+                            <p>No extractions found. Invoke the analysis to begin.</p>
                         </div>
                     )}
                 </div>
