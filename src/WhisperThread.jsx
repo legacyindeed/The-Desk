@@ -60,14 +60,17 @@ const WhisperThread = () => {
         setIsGenerating(true);
 
         try {
-            let resultObj = null;
+            let resultObj = {
+                themes: ["Analyzing...", "Processing...", "Syncing..."],
+                summary: "The AI is currently processing your data.",
+                mood: "Stable"
+            };
 
             if (genAI) {
-                console.log("AI Status: API Key active. Length:", apiKey?.length);
+                console.log("AI Status: API Key active. Trying Model...");
 
                 let result;
                 try {
-                    console.log("Attempting extraction with gemini-1.5-flash...");
                     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
                     const cleanEntries = entries.slice(0, 10).map(e => ({
@@ -75,38 +78,30 @@ const WhisperThread = () => {
                         content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
                     }));
 
-                    const prompt = `
-                        Analyze the substance of these 10 entries as a cold, analytical intellectual assistant.
-                        Return ONLY a JSON object:
-                        { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }
-                        Do NOT mention entry titles.
-                        
-                        Entries: ${JSON.stringify(cleanEntries)}
-                    `;
+                    const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries (ignore titles): ${JSON.stringify(cleanEntries)}`;
 
                     result = await model.generateContent(prompt);
+                    const responseText = result.response.text();
+                    const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
+                    resultObj = JSON.parse(jsonStr);
                 } catch (firstError) {
-                    console.warn("Flash model failed, trying Pro model fallback...", firstError);
-                    const proModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
-                    // Re-run the same logic with proModel
+                    console.error("Primary model failed, trying fallback...", firstError);
+                    const proModel = genAI.getGenerativeModel({ model: "gemini-pro" });
                     const cleanEntries = entries.slice(0, 10).map(e => ({
                         type: e.type,
                         content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
                     }));
-                    const prompt = `Return JSON ONLY: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
+                    const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
                     result = await proModel.generateContent(prompt);
+                    const responseText = result.response.text();
+                    const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
+                    resultObj = JSON.parse(jsonStr);
                 }
-
-                const responseText = result.response.text();
-                const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
-                resultObj = JSON.parse(jsonStr);
-                console.log("AI Extraction Success:", resultObj);
             } else {
-                console.warn("No genAI instance. Fallback active.");
                 resultObj = {
                     themes: ["Self-Correction", "Linear Growth", "Analytical Rigor"],
-                    summary: "You are currently focusing on the refinement of existing ideas rather than exploration.",
-                    mood: "Your mood has shifted from varied curiosity to a more consistent, rhythmic drive."
+                    summary: "Focusing on refinement of existing ideas.",
+                    mood: "Consistent, rhythmic drive."
                 };
             }
 
@@ -130,10 +125,8 @@ const WhisperThread = () => {
             console.error("CRITICAL AI ERROR:", error);
             alert(`Analysis failed: ${error.message || 'Error'}. 
             
-            Troubleshooting:
-            1. Confirm VITE_GEMINI_API_KEY is set in Vercel 'Production' environment.
-            2. The Key should start with 'AIzaSy...'. Current key starts with: ${apiKey?.substring(0, 7)}...
-            3. Ensure you have 'Redeployed' in Vercel after adding the key.`);
+            Key starts with: ${apiKey?.substring(0, 7)}...
+            Try: Confirm Vercel env variable is 'VITE_GEMINI_API_KEY' NOT 'GEMINI_API_KEY'.`);
         } finally {
             setIsGenerating(false);
         }
@@ -141,7 +134,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Evolution Analysis v4.0" showBack={true} />
+            <Header title="Evolution Analysis v5.0" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
