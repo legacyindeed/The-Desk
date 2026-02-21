@@ -71,6 +71,7 @@ const WhisperThread = () => {
 
                 let result;
                 try {
+                    // Standard v1 identifiers
                     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
                     const cleanEntries = entries.slice(0, 10).map(e => ({
@@ -80,19 +81,19 @@ const WhisperThread = () => {
 
                     const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries (ignore titles): ${JSON.stringify(cleanEntries)}`;
 
-                    result = await model.generateContent(prompt);
+                    const result = await model.generateContent(prompt);
                     const responseText = result.response.text();
                     const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
                     resultObj = JSON.parse(jsonStr);
                 } catch (firstError) {
-                    console.error("Primary model failed, trying fallback...", firstError);
-                    const proModel = genAI.getGenerativeModel({ model: "gemini-pro" });
+                    console.error("1.5-flash failed, trying 1.0-pro fallback...", firstError);
+                    const proModel = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
                     const cleanEntries = entries.slice(0, 10).map(e => ({
                         type: e.type,
                         content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
                     }));
                     const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
-                    result = await proModel.generateContent(prompt);
+                    const result = await proModel.generateContent(prompt);
                     const responseText = result.response.text();
                     const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
                     resultObj = JSON.parse(jsonStr);
@@ -122,11 +123,11 @@ const WhisperThread = () => {
             setShadowText(nextText.slice(0, 300));
 
         } catch (error) {
-            console.error("CRITICAL AI ERROR:", error);
-            alert(`Analysis failed: ${error.message || 'Error'}. 
+            console.error("DIAGNOSTIC AI ERROR (v6):", error);
+            alert(`Analysis failed (v6): ${error.message || 'Error'}. 
             
-            Key starts with: ${apiKey?.substring(0, 7)}...
-            Try: Confirm Vercel env variable is 'VITE_GEMINI_API_KEY' NOT 'GEMINI_API_KEY'.`);
+            Key: ${apiKey?.substring(0, 7)}...
+            If you see 404, go to Google AI Studio and ENABLE 'Generative Language API'.`);
         } finally {
             setIsGenerating(false);
         }
@@ -134,7 +135,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Evolution Analysis v5.0" showBack={true} />
+            <Header title="Evolution Analysis v6.0" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
