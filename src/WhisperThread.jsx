@@ -63,36 +63,46 @@ const WhisperThread = () => {
             let resultObj = null;
 
             if (genAI) {
-                console.log("Starting AI Extraction...");
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+                console.log("AI Status: API Key active. Length:", apiKey?.length);
 
-                const cleanEntries = entries.slice(0, 10).map(e => ({
-                    type: e.type,
-                    content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
-                }));
+                let result;
+                try {
+                    console.log("Attempting extraction with gemini-1.5-flash...");
+                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-                const prompt = `
-                    You are a cold, analytical intellectual assistant. 
-                    Analyze the SUBSTANCE of these 10 entries.
-                    
-                    TASK:
-                    1. Extract 3 "Ghost Themes" - substantive keywords or short phrases. Do NOT mention entry titles.
-                    2. Write a 1-line synthesis of the focused ideas.
-                    3. Write a 1-line inference of the mood evolution.
-                    
-                    RESPONSE FORMAT (JSON ONLY):
-                    { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }
-                    
-                    Entries: ${JSON.stringify(cleanEntries)}
-                `;
+                    const cleanEntries = entries.slice(0, 10).map(e => ({
+                        type: e.type,
+                        content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
+                    }));
 
-                const result = await model.generateContent(prompt);
+                    const prompt = `
+                        Analyze the substance of these 10 entries as a cold, analytical intellectual assistant.
+                        Return ONLY a JSON object:
+                        { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }
+                        Do NOT mention entry titles.
+                        
+                        Entries: ${JSON.stringify(cleanEntries)}
+                    `;
+
+                    result = await model.generateContent(prompt);
+                } catch (firstError) {
+                    console.warn("Flash model failed, trying Pro model fallback...", firstError);
+                    const proModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+                    // Re-run the same logic with proModel
+                    const cleanEntries = entries.slice(0, 10).map(e => ({
+                        type: e.type,
+                        content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
+                    }));
+                    const prompt = `Return JSON ONLY: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
+                    result = await proModel.generateContent(prompt);
+                }
+
                 const responseText = result.response.text();
                 const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
                 resultObj = JSON.parse(jsonStr);
                 console.log("AI Extraction Success:", resultObj);
             } else {
-                console.warn("VITE_GEMINI_API_KEY is not defined or invalid. Falling back to rule-based engine.");
+                console.warn("No genAI instance. Fallback active.");
                 resultObj = {
                     themes: ["Self-Correction", "Linear Growth", "Analytical Rigor"],
                     summary: "You are currently focusing on the refinement of existing ideas rather than exploration.",
@@ -118,7 +128,12 @@ const WhisperThread = () => {
 
         } catch (error) {
             console.error("CRITICAL AI ERROR:", error);
-            alert(`Analysis failed: ${error.message || 'Connection Error'}. Please check your API key in Vercel.`);
+            alert(`Analysis failed: ${error.message || 'Error'}. 
+            
+            Troubleshooting:
+            1. Confirm VITE_GEMINI_API_KEY is set in Vercel 'Production' environment.
+            2. The Key should start with 'AIzaSy...'. Current key starts with: ${apiKey?.substring(0, 7)}...
+            3. Ensure you have 'Redeployed' in Vercel after adding the key.`);
         } finally {
             setIsGenerating(false);
         }
@@ -126,7 +141,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Evolution Analysis v3.2" showBack={true} />
+            <Header title="Evolution Analysis v4.0" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
