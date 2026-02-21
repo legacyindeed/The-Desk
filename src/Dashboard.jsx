@@ -5,7 +5,8 @@ import {
     LineChart, Line
 } from 'recharts';
 import './Dashboard.css';
-
+import HeatmapCalendar from './HeatmapCalendar';
+import IntellectualDNA from './IntellectualDNA';
 import { auth } from './firebase';
 
 const Dashboard = ({ entries }) => {
@@ -129,6 +130,10 @@ const Dashboard = ({ entries }) => {
                     </ResponsiveContainer>
                 </div>
             </div>
+
+            <HeatmapCalendar entries={entries} />
+
+            <IntellectualDNA entries={entries} />
 
             <div className="recent-activity">
                 <div className="section-header">

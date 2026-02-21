@@ -1,0 +1,175 @@
+/* IntellectualDNA.css */
+
+.dna-wrapper {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 32px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+}
+
+.dna-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.dna-title-row h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #020617;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.3rem 0;
+}
+
+.dna-subtitle {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Persona badge */
+.dna-persona {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    flex-shrink: 0;
+}
+
+.persona-emoji {
+    font-size: 2.25rem;
+    line-height: 1;
+}
+
+.dna-persona strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #020617;
+    letter-spacing: -0.01em;
+}
+
+.dna-persona span {
+    display: block;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+/* Stat grid */
+.dna-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.dna-card {
+    background: rgba(248, 250, 252, 0.8);
+    border: 1px solid rgba(15, 23, 42, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: all 0.3s ease;
+}
+
+.dna-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.dna-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #94a3b8;
+}
+
+.dna-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #020617;
+    line-height: 1.3;
+}
+
+.dna-value.large {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.dna-unit {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-left: 2px;
+}
+
+/* Progress bars */
+.dna-bar-track {
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 100px;
+    margin-top: 0.75rem;
+    overflow: hidden;
+}
+
+.dna-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reading-fill {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+}
+
+.consistency-fill {
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+}
+
+@media (max-width: 900px) {
+    .dna-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dna-wrapper {
+        padding: 1.5rem;
+        border-radius: 20px;
+        margin-bottom: 2rem;
+    }
+
+    .dna-title-row {
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+    }
+
+    .dna-persona {
+        width: 100%;
+    }
+
+    .dna-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.875rem;
+    }
+
+    .dna-value.large {
+        font-size: 1.35rem;
+    }
+}
