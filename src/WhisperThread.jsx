@@ -15,10 +15,6 @@ const WhisperThread = () => {
     const [shadowText, setShadowText] = useState('');
     const scrollRef = useRef(null);
 
-    // Initialize Gemini (Safely handle potentially undefined env var)
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    const genAI = (apiKey && apiKey !== 'undefined' && apiKey !== '') ? new GoogleGenerativeAI(apiKey) : null;
-
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
             if (currentUser) {
@@ -32,17 +28,21 @@ const WhisperThread = () => {
     }, [navigate]);
 
     const fetchEntries = async (uid) => {
-        const q = query(collection(db, 'users', uid, 'entries'), orderBy('timestamp', 'desc'), limit(50));
-        const snapshot = await getDocs(q);
-        const data = snapshot.docs.map(d => d.data());
-        setEntries(data);
+        try {
+            const q = query(collection(db, 'users', uid, 'entries'), orderBy('timestamp', 'desc'), limit(50));
+            const snapshot = await getDocs(q);
+            const data = snapshot.docs.map(d => d.data());
+            setEntries(data);
 
-        if (data.length > 0) {
-            const randomEntry = data[Math.floor(Math.random() * data.length)];
-            const text = randomEntry.type === 'writing' ?
-                extractTextFromHtml(randomEntry.content) :
-                randomEntry.reflections || randomEntry.title;
-            setShadowText(text.slice(0, 300));
+            if (data.length > 0) {
+                const randomEntry = data[Math.floor(Math.random() * data.length)];
+                const text = randomEntry.type === 'writing' ?
+                    extractTextFromHtml(randomEntry.content) :
+                    randomEntry.reflections || randomEntry.title;
+                setShadowText(text.slice(0, 300));
+            }
+        } catch (error) {
+            console.error("Error fetching entries:", error);
         }
     };
 
@@ -59,51 +59,52 @@ const WhisperThread = () => {
 
         setIsGenerating(true);
 
+        // Access API Key directly inside the function to avoid closure/stale value issues
+        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        const genAI = (apiKey && apiKey !== 'undefined' && apiKey !== '') ? new GoogleGenerativeAI(apiKey) : null;
+
         try {
-            let resultObj = {
-                themes: ["Analyzing...", "Processing...", "Syncing..."],
-                summary: "The AI is currently processing your data.",
-                mood: "Stable"
-            };
+            let resultObj = null;
 
-            if (genAI) {
-                console.log("AI Status: API Key active. Trying Model...");
+            if (!genAI) {
+                throw new Error("AI engine not initialized. Check your VITE_GEMINI_API_KEY.");
+            }
 
-                let result;
+            console.log("Extraction started. Key detected:", apiKey.substring(0, 6) + "...");
+
+            // Model fallback list
+            const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-flash-latest", "gemini-pro"];
+            let lastError = null;
+
+            for (const modelName of modelsToTry) {
                 try {
-                    // Standard v1 identifiers
-                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    console.log(`Trying model: ${modelName}`);
+                    const model = genAI.getGenerativeModel({ model: modelName });
 
                     const cleanEntries = entries.slice(0, 10).map(e => ({
                         type: e.type,
-                        content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
+                        content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1000) : e.reflections?.slice(0, 1000),
                     }));
 
-                    const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries (ignore titles): ${JSON.stringify(cleanEntries)}`;
+                    const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
 
                     const result = await model.generateContent(prompt);
                     const responseText = result.response.text();
                     const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
                     resultObj = JSON.parse(jsonStr);
-                } catch (firstError) {
-                    console.error("1.5-flash failed, trying 1.0-pro fallback...", firstError);
-                    const proModel = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
-                    const cleanEntries = entries.slice(0, 10).map(e => ({
-                        type: e.type,
-                        content: e.type === 'writing' ? extractTextFromHtml(e.content).slice(0, 1500) : e.reflections?.slice(0, 1500),
-                    }));
-                    const prompt = `Return ONLY JSON: { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }. Analyze these 10 entries: ${JSON.stringify(cleanEntries)}`;
-                    const result = await proModel.generateContent(prompt);
-                    const responseText = result.response.text();
-                    const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
-                    resultObj = JSON.parse(jsonStr);
+
+                    if (resultObj) {
+                        console.log(`Success with ${modelName}`);
+                        break;
+                    }
+                } catch (err) {
+                    console.warn(`${modelName} failed:`, err.message);
+                    lastError = err;
                 }
-            } else {
-                resultObj = {
-                    themes: ["Self-Correction", "Linear Growth", "Analytical Rigor"],
-                    summary: "Focusing on refinement of existing ideas.",
-                    mood: "Consistent, rhythmic drive."
-                };
+            }
+
+            if (!resultObj) {
+                throw lastError || new Error("All models failed to generate content.");
             }
 
             const whisperObj = {
@@ -123,8 +124,11 @@ const WhisperThread = () => {
             setShadowText(nextText.slice(0, 300));
 
         } catch (error) {
-            console.error("AI Extraction Error:", error);
-            alert(`Analysis failed: ${error.message || 'Connection Error'}. Please ensure your API key is active and entries contain enough text.`);
+            console.error("ULTIMATE AI ERROR:", error);
+            alert(`Extraction Failed: ${error.message}
+            
+            Current Key: ${apiKey?.substring(0, 7)}...
+            If you see '404', the model name or API is likely restricted for this specific key.`);
         } finally {
             setIsGenerating(false);
         }
@@ -132,7 +136,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Substance Extraction" showBack={true} />
+            <Header title="Extraction System v7.0" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
@@ -163,7 +167,7 @@ const WhisperThread = () => {
                             <div className="extraction-header">
                                 <span className="extraction-marker">GHOST THEMES</span>
                                 <div className="theme-badges">
-                                    {w.themes.map((t, i) => (
+                                    {(w.themes || []).map((t, i) => (
                                         <span key={i} className="theme-badge pulse-hover">{t}</span>
                                     ))}
                                 </div>
