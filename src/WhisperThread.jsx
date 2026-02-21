@@ -15,8 +15,9 @@ const WhisperThread = () => {
     const [shadowText, setShadowText] = useState('');
     const scrollRef = useRef(null);
 
-    // Initialize Gemini
-    const genAI = import.meta.env.VITE_GEMINI_API_KEY ? new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY) : null;
+    // Initialize Gemini (Safely handle potentially undefined env var)
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const genAI = (apiKey && apiKey !== 'undefined' && apiKey !== '') ? new GoogleGenerativeAI(apiKey) : null;
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(currentUser => {
@@ -62,6 +63,7 @@ const WhisperThread = () => {
             let resultObj = null;
 
             if (genAI) {
+                console.log("Starting AI Extraction...");
                 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
                 const cleanEntries = entries.slice(0, 10).map(e => ({
@@ -71,30 +73,26 @@ const WhisperThread = () => {
 
                 const prompt = `
                     You are a cold, analytical intellectual assistant. 
-                    Analyze the SUBSTANCE of the following 10 entries.
+                    Analyze the SUBSTANCE of these 10 entries.
                     
                     TASK:
-                    1. Extract 3 "Ghost Themes" - substantive keywords or short phrases that appear in the content but are NOT in any titles.
-                    2. Write a 1-line synthesis of their current mental focus.
-                    3. Write a 1-line inference of their mood evolution.
+                    1. Extract 3 "Ghost Themes" - substantive keywords or short phrases. Do NOT mention entry titles.
+                    2. Write a 1-line synthesis of the focused ideas.
+                    3. Write a 1-line inference of the mood evolution.
                     
                     RESPONSE FORMAT (JSON ONLY):
-                    {
-                        "themes": ["theme1", "theme2", "theme3"],
-                        "summary": "...",
-                        "mood": "..."
-                    }
+                    { "themes": ["theme1", "theme2", "theme3"], "summary": "...", "mood": "..." }
                     
                     Entries: ${JSON.stringify(cleanEntries)}
                 `;
 
                 const result = await model.generateContent(prompt);
                 const responseText = result.response.text();
-                // Extract JSON if AI adds markdown
                 const jsonStr = responseText.match(/\{[\s\S]*\}/)?.[0] || responseText;
                 resultObj = JSON.parse(jsonStr);
+                console.log("AI Extraction Success:", resultObj);
             } else {
-                // FALLBACK
+                console.warn("VITE_GEMINI_API_KEY is not defined or invalid. Falling back to rule-based engine.");
                 resultObj = {
                     themes: ["Self-Correction", "Linear Growth", "Analytical Rigor"],
                     summary: "You are currently focusing on the refinement of existing ideas rather than exploration.",
@@ -119,8 +117,8 @@ const WhisperThread = () => {
             setShadowText(nextText.slice(0, 300));
 
         } catch (error) {
-            console.error("AI Extraction Error:", error);
-            alert("Analysis failed. Please check your connection.");
+            console.error("CRITICAL AI ERROR:", error);
+            alert(`Analysis failed: ${error.message || 'Connection Error'}. Please check your API key in Vercel.`);
         } finally {
             setIsGenerating(false);
         }
@@ -128,7 +126,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Deep Substance Extraction" showBack={true} />
+            <Header title="Evolution Analysis v3.2" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
