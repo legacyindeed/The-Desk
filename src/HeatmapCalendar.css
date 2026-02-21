@@ -79,15 +79,15 @@
 .heatmap-table-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     overflow-x: auto;
 }
 
 /* Month header row */
 .heatmap-month-header {
     display: grid;
-    grid-template-columns: 44px repeat(12, 24px);
-    gap: 4px;
+    grid-template-columns: 44px repeat(12, 1fr);
+    gap: 6px;
     align-items: center;
 }
 
@@ -104,8 +104,8 @@
 
 .heatmap-week-row {
     display: grid;
-    grid-template-columns: 44px repeat(12, 24px);
-    gap: 4px;
+    grid-template-columns: 44px repeat(12, 1fr);
+    gap: 6px;
     align-items: center;
 }
 
@@ -121,11 +121,11 @@
 
 /* Individual cells */
 .heatmap-cell {
-    aspect-ratio: 1;
+    height: 28px;
+    width: 100%;
     border-radius: 6px;
     cursor: default;
     transition: transform 0.15s ease, filter 0.15s ease;
-    min-height: 14px;
 }
 
 .heatmap-cell:not(.cell-empty):hover {
