@@ -64,7 +64,7 @@ const WhisperThread = () => {
 
             if (genAI) {
                 console.log("Starting AI Extraction...");
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
                 const cleanEntries = entries.slice(0, 10).map(e => ({
                     type: e.type,
