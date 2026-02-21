@@ -35,7 +35,6 @@ const BurgerMenu = () => {
                         <button onClick={() => { navigate('/analytics'); setIsOpen(false); }}>History</button>
                         <button onClick={() => { navigate('/dashboard'); setIsOpen(false); }}>Dashboard</button>
                         <button onClick={() => { navigate('/profile'); setIsOpen(false); }}>Profile</button>
-                        <button onClick={() => { navigate('/settings'); setIsOpen(false); }}>Settings</button>
                         <div className="burger-divider" />
                         <button className="logout-btn" onClick={handleLogout}>Sign Out</button>
                     </div>
