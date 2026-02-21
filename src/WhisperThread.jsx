@@ -47,6 +47,59 @@ const WhisperThread = () => {
         return doc.body.textContent || "";
     };
 
+    const extractKeywords = (text) => {
+        const stopWords = new Set(['the', 'and', 'a', 'to', 'of', 'in', 'i', 'is', 'that', 'it', 'on', 'you', 'for', 'with', 'was', 'as', 'at', 'be', 'this', 'have', 'from', 'or', 'by', 'but', 'not', 'what', 'all', 'we', 'when', 'can', 'said', 'an', 'if', 'my', 'up', 'do', 'about', 'reflections', 'title', 'content']);
+        const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+        return words.filter(word => word.length > 3 && !stopWords.has(word));
+    };
+
+    const analyzeIntelligence = (recent, past) => {
+        const recentWords = recent.map(e => extractKeywords(e.type === 'writing' ? extractTextFromHtml(e.content) : (e.reflections || '') + ' ' + e.title)).flat();
+        const pastWords = past.map(e => extractKeywords(e.type === 'writing' ? extractTextFromHtml(e.content) : (e.reflections || '') + ' ' + e.title)).flat();
+
+        const recentFreq = {};
+        recentWords.forEach(w => recentFreq[w] = (recentFreq[w] || 0) + 1);
+
+        const commonWords = recentWords.filter(w => pastWords.includes(w));
+        const uniqueCommon = Array.from(new Set(commonWords));
+
+        // Find a specific bridge
+        let bridgeMessage = "";
+        if (uniqueCommon.length > 0) {
+            const topKeyword = uniqueCommon[Math.floor(Math.random() * uniqueCommon.length)];
+            bridgeMessage = `The seed of "${topKeyword}" was planted in my earlier sessions. Watching it bloom in my recent work on "${recent[0].title}" shows how my ideas are maturing.`;
+        }
+
+        // Compare moods if available
+        const recentMoods = recent.filter(e => e.mood).map(e => e.mood);
+        const pastMoods = past.filter(e => e.mood).map(e => e.mood);
+
+        if (recentMoods.length > 0 && pastMoods.length > 0) {
+            if (recentMoods[0] !== pastMoods[0]) {
+                bridgeMessage = bridgeMessage || `I was feeling "${pastMoods[0]}" when I explored "${past[0].title}," but I've transitioned into a "${recentMoods[0]}" energy now. My emotional alignment has completely shifted.`;
+            }
+        }
+
+        // Analysis of consumption vs creation
+        const readCount = entries.filter(e => e.type === 'reading').length;
+        const writeCount = entries.filter(e => e.type === 'writing').length;
+
+        const ratioText = (readCount > writeCount * 2 && writeCount > 0) ?
+            "I've been consuming so much more than I've been creating lately. My mind is full of others' voices; perhaps it's time to speak my own Truth more often." :
+            (writeCount > readCount * 2 && readCount > 0) ?
+                "I'm pouring out so much creative energy. I must remember to return to the Sanctuary and refill my well with new perspectives soon." :
+                "There is a beautiful symmetry between my reading and my writing right now. My input and output are in harmony.";
+
+        const genericDialogues = [
+            `The questions I asked back during "${past[0].title}" are finally being answered in "${recent[0].title}". I've grown more than I realized.`,
+            `It's strange... the themes from my time with "${past[0].title}" are still echoing in "${recent[0].title}". Some parts of me never change.`,
+            `I was searching for something during "${past[0].title}". I think I found a piece of it today in "${recent[0].title}".`
+        ];
+
+        // Preference: Keyword Bridge > Emotional Shift > Ratio Analysis > Generic
+        return bridgeMessage || ratioText || genericDialogues[Math.floor(Math.random() * genericDialogues.length)];
+    };
+
     const generateWhisper = () => {
         if (entries.length < 2) {
             alert("The Shadow needs more of your history to find a dialogue. Keep reading and writing!");
@@ -55,35 +108,15 @@ const WhisperThread = () => {
 
         setIsGenerating(true);
 
-        // Simulate AI thinking and shadow movement
         setTimeout(() => {
             const recent = entries.slice(0, 5);
-            const past = entries.slice(10, 30);
+            const past = entries.slice(5, 50); // Use the rest of history
 
-            let newWhisper = "";
-
-            if (past.length > 0) {
-                const pastEntry = past[Math.floor(Math.random() * past.length)];
-                const recentEntry = recent[Math.floor(Math.random() * recent.length)];
-
-                const dialogues = [
-                    `I remember when I was obsessed with "${pastEntry.title}" a while ago. Seeing me work on "${recentEntry.title}" now, I can see how far my perspective has shifted.`,
-                    `The questions I asked back during "${pastEntry.title}" are finally being answered in "${recentEntry.title}". I've grown more than I realized.`,
-                    `I was much more rigid when I wrote/read "${pastEntry.title}". In "${recentEntry.title}", I sense a new kind of creative freedom.`,
-                    `It's strange... the themes from my time with "${pastEntry.title}" are still echoing in "${recentEntry.title}". Some parts of me never change.`,
-                    `I was searching for something during "${pastEntry.title}". I think I found a piece of it today in "${recentEntry.title}".`
-                ];
-                newWhisper = dialogues[Math.floor(Math.random() * dialogues.length)];
-            } else {
-                // Fallback for newer users
-                const e1 = entries[0];
-                const e2 = entries[1];
-                newWhisper = `I see a thread connecting "${e1.title}" to "${e2.title}". My mind is building a bridge between these two worlds.`;
-            }
+            const dialogue = analyzeIntelligence(recent, past);
 
             const whisperObj = {
                 id: Date.now(),
-                text: newWhisper,
+                text: dialogue,
                 date: new Date().toLocaleDateString(),
                 type: 'shadow'
             };
@@ -91,7 +124,7 @@ const WhisperThread = () => {
             setWhispers([whisperObj, ...whispers]);
             setIsGenerating(false);
 
-            // Randomize shadow text for next time
+            // Randomize shadow text
             const nextShadowEntry = entries[Math.floor(Math.random() * entries.length)];
             const nextText = nextShadowEntry.type === 'writing' ?
                 extractTextFromHtml(nextShadowEntry.content) :
