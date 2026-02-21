@@ -200,36 +200,108 @@
 }
 
 .glass-fancy {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(15, 23, 42, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.06);
     border-radius: 32px;
-    padding: 2.5rem;
-    transition: all 0.4s ease;
+    padding: 3rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
 }
 
 .glass-fancy:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.04);
+    transform: translateY(-12px);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.06);
 }
 
-.grid-item h4 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
+/* Coloured top accent bar */
+.card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 32px 32px 0 0;
+}
+
+.reading-accent {
+    background: linear-gradient(90deg, #3b82f6, #6366f1);
+}
+
+.writing-accent {
+    background: linear-gradient(90deg, #020617, #475569);
+}
+
+.insight-accent {
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
 }
 
 .item-icon {
-    font-size: 2rem;
+    font-size: 2.75rem;
     margin-bottom: 1.5rem;
-    color: #3b82f6;
+    display: block;
+}
+
+.grid-item h4 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #020617;
 }
 
 .grid-item p {
     color: #64748b;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+}
+
+.feature-list li {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.card-cta {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #020617;
+    opacity: 0.4;
+    transition: opacity 0.3s, transform 0.3s;
+    display: inline-block;
+    margin-top: auto;
+}
+
+.glass-fancy:hover .card-cta {
+    opacity: 1;
+    transform: translateX(4px);
 }
 
 /* Footer */

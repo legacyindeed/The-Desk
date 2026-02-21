@@ -58,20 +58,40 @@ const LandingPage = () => {
 
                 <section className="aesthetic-grid">
                     <div className="grid-item glass-fancy animate-stagger-1">
+                        <div className="card-accent reading-accent" />
                         <div className="item-icon">📖</div>
                         <h4>Quiet Reading</h4>
-                        <p>Log every page with mindful reflections and curated book stats.</p>
+                        <p>Log every page with mindful reflections and curated book stats. Build a living record of your intellectual journey, one chapter at a time.</p>
+                        <ul className="feature-list">
+                            <li>Track pages & reading sessions</li>
+                            <li>Add reflections & highlights</li>
+                            <li>Build your personal library</li>
+                        </ul>
+                        <span className="card-cta">Start Reading →</span>
                     </div>
                     <div className="grid-item glass-fancy animate-stagger-2">
+                        <div className="card-accent writing-accent" />
                         <div className="item-icon">✒️</div>
                         <h4>Deep Writing</h4>
-                        <div className="word-pulse"></div>
-                        <p>A minimalist studio built for focus and creative momentum.</p>
+                        <p>A distraction-free studio built for focus and creative momentum. Your words deserve a premium canvas, not a cluttered interface.</p>
+                        <ul className="feature-list">
+                            <li>Rich-text editor with Zen mode</li>
+                            <li>Live word & character count</li>
+                            <li>Image embeds via cloud storage</li>
+                        </ul>
+                        <span className="card-cta">Start Writing →</span>
                     </div>
                     <div className="grid-item glass-fancy animate-stagger-3">
+                        <div className="card-accent insight-accent" />
                         <div className="item-icon">📊</div>
                         <h4>Pure Insight</h4>
-                        <p>Your intellectual progress, visualized with premium elegance.</p>
+                        <p>Your intellectual progress, visualized with premium elegance. Understand your habits at a glance and extract the substance of your thinking.</p>
+                        <ul className="feature-list">
+                            <li>Dashboard with live charts</li>
+                            <li>Substance extraction engine</li>
+                            <li>Studio & Sanctuary modes</li>
+                        </ul>
+                        <span className="card-cta">View Analytics →</span>
                     </div>
                 </section>
             </div>
