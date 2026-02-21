@@ -123,11 +123,8 @@ const WhisperThread = () => {
             setShadowText(nextText.slice(0, 300));
 
         } catch (error) {
-            console.error("DIAGNOSTIC AI ERROR (v6):", error);
-            alert(`Analysis failed (v6): ${error.message || 'Error'}. 
-            
-            Key: ${apiKey?.substring(0, 7)}...
-            If you see 404, go to Google AI Studio and ENABLE 'Generative Language API'.`);
+            console.error("AI Extraction Error:", error);
+            alert(`Analysis failed: ${error.message || 'Connection Error'}. Please ensure your API key is active and entries contain enough text.`);
         } finally {
             setIsGenerating(false);
         }
@@ -135,7 +132,7 @@ const WhisperThread = () => {
 
     return (
         <div className="whisper-page shadow-theme variant-b">
-            <Header title="Evolution Analysis v6.0" showBack={true} />
+            <Header title="Substance Extraction" showBack={true} />
 
             <div className="shadow-background">
                 <div className="moving-shadow-text">{shadowText}</div>
