@@ -8,7 +8,7 @@ const Selection = () => {
 
     return (
         <div className="selection-page">
-            <Header showBack={true} backPath="/dashboard" />
+            <Header showBack={true} />
 
             <div className="selection-content container">
                 <h1 className="selection-title">Select Your Session</h1>

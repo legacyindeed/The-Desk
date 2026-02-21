@@ -80,7 +80,6 @@ const Analytics = () => {
 
             <Header
                 showBack={true}
-                backPath="/dashboard"
                 title="History"
                 actions={<button className="btn-secondary-fancy analytics-nav-btn" onClick={clearHistory}>Clear All</button>}
             />

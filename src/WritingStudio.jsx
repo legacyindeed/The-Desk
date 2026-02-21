@@ -181,7 +181,6 @@ const WritingStudio = () => {
             {!isZen && (
                 <Header
                     showBack={true}
-                    backPath="/analytics"
                     actions={
                         <button className="btn-secondary-fancy" onClick={() => setIsZen(true)}>
                             Zen Focus

@@ -11,7 +11,7 @@ import './Header.css';
  * @param {boolean} showLogo - Whether to show the logo (usually when showBack is false)
  * @param {React.ReactNode} actions - Extra buttons/actions to show on the right
  */
-const Header = ({ title, showBack = false, backPath = -1, showLogo = true, actions }) => {
+const Header = ({ title, showBack = false, backPath = '/home', showLogo = true, actions }) => {
     const navigate = useNavigate();
 
     return (

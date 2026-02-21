@@ -68,7 +68,7 @@ const Settings = () => {
     return (
         <div className="settings-page">
 
-            <Header title="Settings" showBack={true} backPath="/home" />
+            <Header title="Settings" showBack={true} />
 
             <main className="container settings-main animate-up">
                 <div className="glass settings-card">

@@ -59,7 +59,7 @@ const ReadingSanctuary = () => {
 
     return (
         <div className="sanctuary-page">
-            <Header showBack={true} backPath="/analytics" />
+            <Header showBack={true} />
 
             <main className="container sanctuary-main animate-up">
                 <div className="reading-form-card glass-blur">
