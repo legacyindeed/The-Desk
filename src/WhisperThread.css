@@ -1,342 +1,132 @@
-/* WhisperThread.css */
+/* WhisperThread.css - Wednesday Design Overhaul */
 
 .whisper-page.shadow-theme {
     min-height: 100vh;
-    padding-top: 80px;
-    background: #020617;
-    color: #f8fafc;
+    background: transparent;
+    color: var(--text-main);
     position: relative;
     overflow-x: hidden;
-}
-
-/* Background Shadow Effect */
-.shadow-background {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.1;
-    overflow: hidden;
-}
-
-.moving-shadow-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-15deg);
-    font-size: 8rem;
-    font-weight: 900;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    color: white;
-    white-space: nowrap;
-    filter: blur(40px);
-    animation: floatingText 20s infinite linear;
-}
-
-@keyframes floatingText {
-    0% {
-        transform: translate(-45%, -55%) rotate(-15deg);
-    }
-
-    50% {
-        transform: translate(-55%, -45%) rotate(-10deg);
-    }
-
-    100% {
-        transform: translate(-45%, -55%) rotate(-15deg);
-    }
 }
 
 .whisper-container {
     position: relative;
     z-index: 10;
-    max-width: 800px;
-    margin: 4rem auto;
-    padding-bottom: 6rem;
+    max-width: 900px;
+    margin: 6rem auto;
+    padding: 0 2rem 10rem 2rem;
 }
 
 .whisper-hero {
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 6rem;
 }
 
 .whisper-hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: white;
+    font-size: 5.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: 1;
 }
 
 .whisper-hero p {
-    font-size: 1.1rem;
-    color: #94a3b8;
-    max-width: 500px;
-    margin: 0 auto 3rem;
-    line-height: 1.6;
-}
-
-/* Shadow Orb Animation */
-.orb-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 4rem;
+    font-weight: 500;
 }
 
 .shadow-orb {
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-    transition: all 1s ease;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.1) 0%, transparent 70%);
 }
 
-.inner-shadow {
-    width: 60px;
-    height: 60px;
-    background: #000;
-    border-radius: 50%;
-    filter: blur(10px);
-    opacity: 0.8;
-    animation: orbitShadow 4s infinite ease-in-out;
-}
-
-.shadow-orb.active {
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
-}
-
-.shadow-orb.active .inner-shadow {
-    animation: orbitShadowActive 1s infinite linear;
-    filter: blur(5px);
-    width: 80px;
-    height: 80px;
-}
-
-@keyframes orbitShadow {
-
-    0%,
-    100% {
-        transform: translate(0, 0) scale(1);
-    }
-
-    25% {
-        transform: translate(20px, -20px) scale(1.1);
-    }
-
-    50% {
-        transform: translate(-20px, 20px) scale(0.9);
-    }
-
-    75% {
-        transform: translate(-20px, -20px) scale(1.1);
-    }
-}
-
-@keyframes orbitShadowActive {
-    from {
-        transform: rotate(0deg) translateX(40px);
-    }
-
-    to {
-        transform: rotate(360deg) translateX(40px);
-    }
-}
-
-/* Action Button */
 .btn-shadow-action {
-    padding: 1.25rem 3.5rem;
-    font-size: 1.15rem;
-    background: #ffffff;
-    color: #020617;
+    padding: 1.5rem 4rem;
+    font-size: 1.25rem;
+    background: var(--text-main);
+    color: white;
     border-radius: 100px;
     font-weight: 800;
-    border: none;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.btn-shadow-action:hover:not(:disabled) {
-    transform: translateY(-5px);
-    background: #f8fafc;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
-
-.btn-shadow-action:disabled {
-    background: #1e293b;
-    color: #64748b;
-    cursor: wait;
-}
-
-/* Shadow Cards */
-.whisper-card.shadow-card {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    border-radius: 28px;
-    padding: 2.5rem;
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-    transition: all 0.5s ease;
-    margin-bottom: 2rem;
-}
-
-.whisper-card.shadow-card:hover {
-    background: rgba(15, 23, 42, 0.8);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: perspective(1000px) rotateX(2deg) translateY(-5px);
-}
-
-.whisper-avatar {
-    font-size: 1.5rem;
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.whisper-text {
-    font-family: var(--font-sans);
-    font-size: 1.4rem;
-    line-height: 1.7;
-    color: #e2e8f0;
-    margin-bottom: 1rem;
-}
-
-.whisper-meta {
-    font-size: 0.85rem;
-    color: #64748b;
-    font-weight: 700;
+    transition: var(--transition-normal);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
-.shadow-empty {
-    text-align: center;
-    padding: 5rem;
-    color: #475569;
-    font-style: italic;
+.btn-shadow-action:hover:not(:disabled) {
+    transform: translateY(-8px) scale(1.03);
+    background: #000000;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
 }
 
-/* Extraction Variant (Option B) */
+.whisper-card.shadow-card,
 .extraction-card {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 32px;
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--glass-bg);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px;
+    padding: 3.5rem;
+    transition: var(--transition-normal);
+    box-shadow: var(--glass-shadow);
     position: relative;
     overflow: hidden;
 }
 
+.whisper-card.shadow-card::after,
+.extraction-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--glass-stroke);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.whisper-card.shadow-card:hover,
 .extraction-card:hover {
-    background: rgba(15, 23, 42, 0.6);
-    border-color: rgba(59, 130, 246, 0.2);
-    transform: translateY(-5px);
+    transform: translateY(-12px) scale(1.02);
+    background: #ffffff;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.12);
 }
 
-.extraction-header {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.extraction-marker {
-    font-size: 0.75rem;
-    color: #3b82f6;
+.whisper-text {
+    font-size: 1.8rem;
     font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.8;
-}
-
-.theme-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    line-height: 1.4;
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 .theme-badge {
-    padding: 0.6rem 1.4rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.75rem;
+    background: rgba(15, 23, 42, 0.05);
+    border: 1px solid var(--glass-border);
     border-radius: 100px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #f8fafc;
-    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
 .theme-badge:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #3b82f6;
-    transform: scale(1.05);
+    background: var(--text-main);
+    color: white;
+    transform: translateY(-2px);
 }
 
-.extraction-body {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1.5rem;
-}
-
-.extraction-body .whisper-text {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-style: normal;
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-}
-
-.extraction-body .whisper-text strong {
-    color: #3b82f6;
-    font-weight: 700;
-    margin-right: 0.5rem;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.05em;
-}
-
-.pulse-hover {
-    animation: none;
-}
-
-.pulse-hover:hover {
-    animation: gentlePulse 2s infinite ease-in-out;
-}
-
-@keyframes gentlePulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.7;
-    }
-}
-
-/* Mobile responsive fixes */
 @media (max-width: 768px) {
-    .extraction-card {
-        padding: 1.5rem;
+    .whisper-hero h1 {
+        font-size: 3.5rem;
     }
 
-    .theme-badge {
-        font-size: 0.85rem;
-        padding: 0.4rem 1rem;
+    .whisper-card.shadow-card,
+    .extraction-card {
+        padding: 2.5rem 2rem;
+    }
+
+    .whisper-text {
+        font-size: 1.4rem;
     }
 }

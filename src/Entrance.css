@@ -1,3 +1,5 @@
+/* Entrance.css - Wednesday Design Overhaul */
+
 .entrance-page {
     position: fixed;
     inset: 0;
@@ -5,16 +7,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-    color: white;
+    background: transparent;
+    color: var(--text-main);
     text-align: center;
 }
 
 .entrance-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(2, 6, 23, 0.7);
-    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
     z-index: 1;
 }
 
@@ -26,27 +28,29 @@
 .entrance-brand {
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
     display: block;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 800;
 }
 
 .entrance-welcome {
-    font-family: 'Lora', serif;
-    font-size: 3.5rem;
-    font-weight: 400;
-    margin-bottom: 2.5rem;
-    letter-spacing: -0.01em;
+    font-size: 5.5rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: 1;
 }
 
 .entrance-loader {
-    width: 200px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0 auto 1.5rem;
+    width: 280px;
+    height: 2px;
+    background: rgba(15, 23, 42, 0.05);
+    margin: 0 auto 2rem;
     position: relative;
     overflow: hidden;
+    border-radius: 100px;
 }
 
 .loader-bar {
@@ -55,26 +59,33 @@
     left: 0;
     height: 100%;
     width: 40%;
-    background: white;
-    animation: loaderMove 2s infinite ease-in-out;
+    background: var(--text-main);
+    animation: loaderMove 2.5s infinite ease-in-out;
 }
 
 .entrance-sub {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
     opacity: 0;
-    animation: fadeIn 1s forwards;
+    animation: fadeIn 1.5s forwards;
     animation-delay: 1s;
+    letter-spacing: 0.02em;
 }
 
 @keyframes loaderMove {
     0% {
         transform: translateX(-100%);
+        width: 10%;
+    }
+
+    50% {
+        width: 40%;
     }
 
     100% {
         transform: translateX(300%);
+        width: 10%;
     }
 }
 
@@ -85,27 +96,27 @@
 }
 
 .animate-reveal {
-    animation: revealIn 3.5s forwards;
+    animation: revealIn 4.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes revealIn {
     0% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: scale(0.98) translateY(30px);
     }
 
     15% {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
 
-    85% {
+    90% {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: scale(1.02) translateY(-20px);
     }
 }

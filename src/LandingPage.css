@@ -2,7 +2,7 @@
 
 .landing-container {
     min-height: 100vh;
-    background-color: #ffffff;
+    background: transparent;
     color: #0f172a;
     position: relative;
     overflow: hidden;
