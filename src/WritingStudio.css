@@ -39,13 +39,13 @@
     width: 100%;
     border: none;
     outline: none;
-    font-family: var(--font-sans);
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 800;
-    margin-bottom: 2.5rem;
-    color: #020617;
+    margin-bottom: 3rem;
+    color: var(--text-main);
     background: transparent;
-    letter-spacing: -0.03em;
+    letter-spacing: var(--letter-spacing-tight);
+    line-height: 1.1;
 }
 
 /* Quill Customization */
@@ -165,14 +165,31 @@
 }
 
 .sidebar-card {
-    padding: 2rem;
+    padding: 2.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+}
+
+.sidebar-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--glass-stroke);
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 .sidebar-card h4 {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: #94a3b8;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    font-weight: 800;
     margin-bottom: 1.5rem;
 }
 

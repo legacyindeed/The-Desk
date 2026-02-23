@@ -1,34 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap');
 
 :root {
-  --bg-color: #fafafa;
-  --card-bg: rgba(255, 255, 255, 0.7);
-  --primary-glow: rgba(59, 130, 246, 0.08);
-  /* Soft Blue */
-  --secondary-glow: rgba(245, 158, 11, 0.05);
-  /* Soft Amber */
-  --tertiary-glow: rgba(168, 85, 247, 0.05);
-
-  /* Unified Typography */
-  --font-serif: 'Plus Jakarta Sans', sans-serif;
-  /* Mapping serif var to Sans for consistency */
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-
-  --accent-blue: #3b82f6;
+  /* Wednesday Core Palette */
+  --bg-color: #f8fafc;
   --text-main: #020617;
   --text-muted: #64748b;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(15, 23, 42, 0.05);
 
-  /* Color Palette Aligned with HomePage.css and other components */
-  --color-background: #ffffff;
-  --color-background-secondary: 248, 250, 252;
-  /* sRGB values for rgba */
-  --color-text-primary: #020617;
-  --color-text-muted: #64748b;
-  --color-primary: #3b82f6;
-  --color-accent: #3b82f6;
-  --color-surface: #ffffff;
+  /* Wednesday Accents */
+  --accent-blue: #3b82f6;
+  --accent-amber: #f59e0b;
+  --accent-violet: #8b5cf6;
+  --accent-rose: #ef4444;
+
+  /* Wednesday Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-stroke: rgba(15, 23, 42, 0.05);
+  /* Outer stroke for depth */
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+
+  /* Unified Typography */
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --letter-spacing-tight: -0.04em;
+  --letter-spacing-normal: -0.01em;
+
+  /* Wednesday Motion */
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease-standard);
+  --transition-normal: 0.4s var(--ease-standard);
 }
 
 * {
@@ -89,8 +88,8 @@ h5,
 h6,
 .serif-text {
   font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 p,
@@ -134,11 +133,23 @@ button {
 
 /* Glassmorphism utility */
 .glass {
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--glass-stroke);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 /* Standardized Logo System */

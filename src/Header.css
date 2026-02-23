@@ -7,11 +7,11 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: #ffffff;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-bottom: 1px solid var(--glass-border);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-bottom: 1px solid var(--glass-stroke);
+    transition: var(--transition-normal);
 }
 
 .header-grid {
@@ -48,12 +48,11 @@
 
 /* Title Styles */
 .header-title {
-    font-family: var(--font-serif);
     font-size: 2rem;
     font-weight: 800;
     margin: 0;
     color: var(--text-main);
-    letter-spacing: -0.02em;
+    letter-spacing: var(--letter-spacing-tight);
 }
 
 /* Back Button Overrides */
@@ -73,27 +72,26 @@
 .header-pill-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 1.15rem;
+    gap: 0.5rem;
+    padding: 0.6rem 1.3rem;
     background: rgba(15, 23, 42, 0.04);
     border: 1px solid rgba(15, 23, 42, 0.08);
     border-radius: 100px;
     font-size: 0.85rem;
-    font-weight: 700;
-    color: #334155;
+    font-weight: 800;
+    color: var(--text-main);
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: var(--transition-normal);
     white-space: nowrap;
-    font-family: var(--font-sans);
-    letter-spacing: 0.01em;
+    letter-spacing: var(--letter-spacing-normal);
 }
 
 .header-pill-btn:hover {
-    background: #020617;
+    background: var(--text-main);
     color: #ffffff;
-    border-color: #020617;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(2, 6, 23, 0.15);
+    border-color: var(--text-main);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(2, 6, 23, 0.15);
 }
 
 .header-pill-btn span {

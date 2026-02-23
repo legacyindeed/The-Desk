@@ -19,22 +19,32 @@
 }
 
 .reading-form-card {
-    padding: 3rem 4rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(15, 23, 42, 0.05);
+    padding: 3.5rem 5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid var(--glass-border);
     border-radius: 40px;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+}
+
+.reading-form-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--glass-stroke);
+    border-radius: inherit;
+    pointer-events: none;
 }
 
 .reading-form-card h1 {
-    font-family: var(--font-sans);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
     text-align: center;
-    letter-spacing: -0.03em;
-    color: #020617;
+    letter-spacing: var(--letter-spacing-tight);
+    color: var(--text-main);
 }
 
 .quote {
@@ -72,11 +82,11 @@
 }
 
 .form-group label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #94a3b8;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
 }
 
 .form-group input,
