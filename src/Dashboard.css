@@ -18,10 +18,10 @@
 }
 
 .welcome-text h1 {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: var(--letter-spacing-tight);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     color: var(--text-main);
     line-height: 1.1;
 }
@@ -111,7 +111,7 @@
 }
 
 .stat-card .value {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 800;
     color: var(--text-main);
     line-height: 1;
@@ -155,9 +155,9 @@
 }
 
 .chart-container h3 {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     font-weight: 800;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     color: var(--text-main);
     letter-spacing: var(--letter-spacing-tight);
 }
@@ -172,7 +172,7 @@
 
 .section-header h3 {
     font-family: var(--font-sans);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.02em;
 }
@@ -206,8 +206,7 @@
 .sanctuary-brand {
     font-family: var(--font-sans);
     font-weight: 800;
-    font-size: 1.5rem !important;
-    /* Scaled down slightly */
+    font-size: 1.2rem !important;
     color: #020617;
     letter-spacing: -0.02em;
     display: flex;
@@ -400,7 +399,7 @@ body.mood-sanctuary .prestige-stat .value {
     }
 
     .section-header h3 {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     .activity-item {

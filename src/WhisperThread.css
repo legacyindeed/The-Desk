@@ -22,18 +22,18 @@
 }
 
 .whisper-hero h1 {
-    font-size: 5.5rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     letter-spacing: var(--letter-spacing-tight);
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .whisper-hero p {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     color: var(--text-muted);
     max-width: 600px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 3rem;
     font-weight: 500;
 }
 
@@ -94,9 +94,9 @@
 }
 
 .whisper-text {
-    font-size: 1.8rem;
-    font-weight: 800;
-    line-height: 1.4;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
     letter-spacing: var(--letter-spacing-tight);
 }
 
@@ -118,7 +118,7 @@
 
 @media (max-width: 768px) {
     .whisper-hero h1 {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
 
     .whisper-card.shadow-card,
@@ -127,6 +127,6 @@
     }
 
     .whisper-text {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
     }
 }
